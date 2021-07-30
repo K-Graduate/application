@@ -1,0 +1,2 @@
+rootProject.name = "slidePaneLayout"
+include ':app'

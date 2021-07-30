@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.slidingpanelayout.widget.SlidingPaneLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/sliding_pane_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/side_pane_content"
+        android:layout_width="400dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/purple_200"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:text="Side Pane"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/side_open"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:backgroundTint="@android:color/white"
+            android:text="OPEN CONTENT PANE"
+            android:textColor="@android:color/black" />
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/width_slider"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:valueFrom="0"
+            android:value="400"
+            android:stepSize="5"
+            android:valueTo="800" />
+
+        <TextView
+            android:id="@+id/sliding_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:text="Slideable?"
+            android:textSize="20sp"
+            />
+    </LinearLayout>
+
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/detail_container"
+        android:name="com.example.slidepanelayout.ContentPaneFragment"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@color/teal_200" />
+
+
+</androidx.slidingpanelayout.widget.SlidingPaneLayout>
