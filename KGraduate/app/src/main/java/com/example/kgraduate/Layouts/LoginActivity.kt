@@ -1,7 +1,9 @@
 package com.example.kgraduate.Layouts
 
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -22,10 +24,14 @@ import retrofit2.converter.gson.GsonConverterFactory
 class LoginActivity : AppCompatActivity() {
     val TAG = "TAG_GRADUATE"
     var login: Login? = null
+    lateinit var prefs : SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        prefs = getSharedPreferences("Prefs",Context.MODE_PRIVATE)
+
 
         var retrofit = Retrofit.Builder()
             .baseUrl("http://18.223.182.55:8080")
@@ -48,6 +54,7 @@ class LoginActivity : AppCompatActivity() {
 //                GlobalScope.launch {
 //                    val url =
 //                }
+                val intent = Intent(this, MainActivity::class.java)
                 loginService.requestLogin(id, pwd).enqueue(object : Callback<Login> {
                     override fun onFailure(call: Call<Login>, t: Throwable) {
                         Log.d(TAG, "onFailure: ${t.message}")
@@ -57,10 +64,15 @@ class LoginActivity : AppCompatActivity() {
                         login = response.body()
                         Log.d(TAG, "onResponse Code: ${login?.code}")
                         Log.d(TAG, "onResponse Token: ${login?.token}")
+
+                        val editor = prefs.edit()
+                        editor.putString("token", login?.token)
+                        editor.commit()
+
+                        startActivity(intent)
                     }
                 })
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
+
             }
         }
     }

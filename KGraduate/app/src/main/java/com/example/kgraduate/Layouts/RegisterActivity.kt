@@ -2,6 +2,7 @@ package com.example.kgraduate.Layouts
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.kgraduate.R
 
 class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
