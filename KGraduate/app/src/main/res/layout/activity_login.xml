@@ -3,82 +3,123 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/loginbg"
-    tools:context=".Layouts.LoginActivity">
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
-        android:layout_width="230dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="50dp"
-        app:cardCornerRadius="17dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" >
-
-        <EditText
-            android:id="@+id/et_hakbun"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="number"
-            android:hint="학번을 입력하세요." />
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView2"
-        android:layout_width="230dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="15dp"
-        app:cardCornerRadius="17dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView">
-
-        <EditText
-            android:id="@+id/et_pwd"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPassword"
-            android:hint="비밀번호를 입력하세요."/>
-    </androidx.cardview.widget.CardView>
+    android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/ic_login_logo"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:text="Login"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="45dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/login"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/login"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cv_login"
-        android:layout_width="230dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="50dp"
-        app:cardBackgroundColor="#CBAA1C1C"
-        app:cardCornerRadius="17dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView2" >
-
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:background="@drawable/login"
+        android:padding="10dp"
+        >
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/mattingText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="로그인"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp"
-            android:layout_gravity="center"/>
-    </androidx.cardview.widget.CardView>
+            android:text="Looking For Matting App"
+            android:layout_marginTop="30dp"
+            android:textSize="25dp"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            />
+        <EditText
+            android:id="@+id/logInId"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Email"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@drawable/loginedit"/>
+        <EditText
+            android:id="@+id/logInPassword"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Password"
+            app:layout_constraintTop_toBottomOf="@+id/logInId"
+            android:background="@drawable/loginedit"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/findPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="비밀번호 찾기"
+            android:textColor="@color/green_700"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="@id/logInPassword"
+            app:layout_constraintBottom_toBottomOf="@id/logInPassword"
+            app:layout_constraintRight_toRightOf="@id/logInPassword"
+            android:layout_marginRight="10dp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/signIn"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:textColor="@color/black"
+        android:text="Sign In"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:background="@drawable/signin"
+        app:layout_constraintBottom_toTopOf="@+id/lastLine"
+        android:gravity="center"
+        android:layout_marginBottom="50dp" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/lastLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="30dp"
+        >
+        <TextView
+            android:id="@+id/logInTextLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="회원가입을 하지 않으셨나요? "
+            android:textSize="18dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="회원가입하러가기"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            android:textColor="@color/green_700"
+            app:layout_constraintLeft_toRightOf="@+id/logInTextLine"
+            app:layout_constraintBottom_toBottomOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

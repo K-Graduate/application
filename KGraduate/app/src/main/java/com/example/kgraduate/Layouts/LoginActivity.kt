@@ -40,9 +40,9 @@ class LoginActivity : AppCompatActivity() {
         var loginService: LoginService = retrofit.create(
                 LoginService::class.java)
 
-        cv_login.setOnClickListener {
-            val id = et_hakbun.text.toString()
-            val pwd = et_pwd.text.toString()
+        signIn.setOnClickListener {
+            val id = logInId.text.toString()
+            val pwd = logInPassword.text.toString()
 
             if(id=="") {
                 Toast.makeText(this, "아이디를 입력하세요.", Toast.LENGTH_SHORT).show()
