@@ -1,6 +1,5 @@
 package com.example.kgraduate.Layouts
 
-import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -11,10 +10,10 @@ import android.widget.Toast
 import com.example.kgraduate.Login.Login
 import com.example.kgraduate.Login.LoginService
 import com.example.kgraduate.R
-import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import org.json.JSONObject
+import kotlinx.android.synthetic.main.activity_login.signIn
+import kotlinx.android.synthetic.main.activity_login.logInId
+import kotlinx.android.synthetic.main.activity_login.logInPassword
+import kotlinx.android.synthetic.main.activity_login.tv_register
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -40,6 +39,13 @@ class LoginActivity : AppCompatActivity() {
         var loginService: LoginService = retrofit.create(
                 LoginService::class.java)
 
+        // 회원가입 하러가기
+        tv_register.setOnClickListener {
+            val intent = Intent(this,RegisterActivity::class.java)
+            startActivity(intent)
+        }
+
+        // 로그인 버튼
         signIn.setOnClickListener {
             val id = logInId.text.toString()
             val pwd = logInPassword.text.toString()
@@ -51,9 +57,6 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this,"비밀번호를 입력하세요.",Toast.LENGTH_SHORT).show()
             }
             else {
-//                GlobalScope.launch {
-//                    val url =
-//                }
                 val intent = Intent(this, MainActivity::class.java)
                 loginService.requestLogin(id, pwd).enqueue(object : Callback<Login> {
                     override fun onFailure(call: Call<Login>, t: Throwable) {
