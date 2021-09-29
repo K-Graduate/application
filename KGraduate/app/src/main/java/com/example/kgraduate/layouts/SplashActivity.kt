@@ -1,4 +1,4 @@
-package com.example.kgraduate.Layouts
+package com.example.kgraduate.layouts
 
 import android.content.Intent
 import android.os.Bundle

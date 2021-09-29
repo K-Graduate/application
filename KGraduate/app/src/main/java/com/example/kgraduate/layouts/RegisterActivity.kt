@@ -1,4 +1,4 @@
-package com.example.kgraduate.Layouts
+package com.example.kgraduate.layouts
 
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
@@ -9,9 +9,9 @@ import android.util.Log
 import android.widget.Toast
 import com.example.kgraduate.Layouts.LoginActivity.Companion.TAG
 import com.example.kgraduate.R
-import com.example.kgraduate.Register.Register
-import com.example.kgraduate.Register.RegisterService
-import com.example.kgraduate.Register.Repetition
+import com.example.kgraduate.register.Register
+import com.example.kgraduate.register.RegisterService
+import com.example.kgraduate.register.Repetition
 import kotlinx.android.synthetic.main.activity_register.et_pwd
 import kotlinx.android.synthetic.main.activity_register.et_id
 import kotlinx.android.synthetic.main.activity_register.iv_back

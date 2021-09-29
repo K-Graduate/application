@@ -1,6 +1,6 @@
-package com.example.kgraduate.Login
+package com.example.kgraduate.login
 
-import com.example.kgraduate.Login.Login
+import com.example.kgraduate.login.Login
 import retrofit2.Call
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded

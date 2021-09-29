@@ -1,4 +1,4 @@
-package com.example.kgraduate.Posts
+package com.example.kgraduate.posts
 
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST

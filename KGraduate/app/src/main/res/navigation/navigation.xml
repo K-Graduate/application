@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/main_fragment">
+
+    <fragment
+        android:id="@+id/home_fragment"
+        android:name="com.example.kgraduate.main.HomeFragment"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_home_fragment_to_info_fragment"
+            app:destination="@id/info_fragment" />
+        <action
+            android:id="@+id/action_home_fragment_to_issue_list_fragment"
+            app:destination="@id/issue_list_fragment" />
+        <action
+            android:id="@+id/action_home_fragment_to_love_fragment"
+            app:destination="@id/love_fragment" />
+        <action
+            android:id="@+id/action_home_fragment_to_message_fragment"
+            app:destination="@id/message_fragment" />
+        <action
+            android:id="@+id/action_home_fragment_to_parcelOut_fragment"
+            app:destination="@id/parcelOut_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/info_fragment"
+        android:name="com.example.kgraduate.info.InfoFragment"
+        tools:layout="@layout/fragment_info">
+        <action
+            android:id="@+id/action_notes_fragment_to_logout_activity"
+            app:destination="@id/home_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/love_fragment"
+        android:name="com.example.kgraduate.love.LoveFragment"
+        tools:layout="@layout/fragment_love">
+        <action
+            android:id="@+id/action_issue_list_fragment_to_issue_detail_activity"
+            app:destination="@id/home_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/message_fragment"
+        android:name="com.example.kgraduate.message.MessageFragment"
+        tools:layout="@layout/fragment_message">
+        <action
+            android:id="@+id/action_issue_list_fragment_to_issue_detail_activity"
+            app:destination="@id/home_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/parcelOut_fragment"
+        android:name="com.example.kgraduate.parcelout.ParcelOutFragment"
+        tools:layout="@layout/fragment_parcelout">
+        <action
+            android:id="@+id/action_issue_list_fragment_to_issue_detail_activity"
+            app:destination="@id/home_fragment" />
+    </fragment>
+
+
+    <activity
+        android:id="@+id/logout_activity"
+        android:name="com.thinlineit.ctrlf.logout.LogoutActivity"
+        tools:layout="@layout/activity_logout"/>
+
+</navigation>

@@ -12,16 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.KGraduate"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Layouts.RegisterActivity"></activity>
-        <activity android:name=".Layouts.SplashActivity">
+        <activity android:name=".layouts.RegisterActivity"></activity>
+        <activity android:name=".layouts.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Layouts.LoginActivity" />
-        <activity android:name=".Layouts.MainActivity" />
+        <activity android:name=".layouts.LoginActivity" />
+        <activity android:name=".layouts.MainActivity" />
     </application>
 
 </manifest>

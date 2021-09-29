@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/loveBtn"
+        android:icon="@drawable/love"
+        app:showAsAction="always"
+        android:title="교배">
+    </item>
+    <item
+        android:id="@+id/parcelOutBtn"
+        android:icon="@drawable/parcel_out"
+        app:showAsAction="always"
+        android:title="분양">
+    </item>
+    <item
+        android:id="@+id/homeBtn"
+        android:icon="@drawable/home"
+        app:showAsAction="always"
+        android:title="홈">
+    </item>
+    <item
+        android:id="@+id/infoBtn"
+        android:icon="@drawable/information"
+        app:showAsAction="always"
+        android:title="제보">
+    </item>
+    <item
+        android:id="@+id/messageBtn"
+        android:icon="@drawable/message"
+        app:showAsAction="always"
+        android:title="메세지">
+    </item>
+</menu>

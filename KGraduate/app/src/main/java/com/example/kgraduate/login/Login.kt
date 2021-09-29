@@ -1,4 +1,4 @@
-package com.example.kgraduate.Login
+package com.example.kgraduate.login
 
 data class Login(
     val code: String,

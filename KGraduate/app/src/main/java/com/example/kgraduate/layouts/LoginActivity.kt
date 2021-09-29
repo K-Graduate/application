@@ -1,4 +1,4 @@
-package com.example.kgraduate.Layouts
+package com.example.kgraduate.layouts
 
 import android.content.Context
 import android.content.Intent
@@ -7,8 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import com.example.kgraduate.Login.Login
-import com.example.kgraduate.Login.LoginService
+import com.example.kgraduate.login.Login
+import com.example.kgraduate.login.LoginService
 import com.example.kgraduate.R
 import kotlinx.android.synthetic.main.activity_login.signIn
 import kotlinx.android.synthetic.main.activity_login.logInId
