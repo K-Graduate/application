@@ -77,6 +77,17 @@
             app:layout_constraintBottom_toBottomOf="@id/logInPassword"
             app:layout_constraintRight_toRightOf="@id/logInPassword"
             android:layout_marginRight="10dp"/>
+
+        <TextView
+            android:id="@+id/tv_warning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="12sp"
+            app:layout_constraintTop_toBottomOf="@id/logInPassword"
+            app:layout_constraintStart_toStartOf="@id/logInPassword"
+            android:layout_marginTop="5dp"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView

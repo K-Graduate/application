@@ -7,7 +7,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.widget.Toast
-import com.example.kgraduate.Layouts.LoginActivity.Companion.TAG
+import com.example.kgraduate.layouts.LoginActivity.Companion.TAG
 import com.example.kgraduate.R
 import com.example.kgraduate.register.Register
 import com.example.kgraduate.register.RegisterService

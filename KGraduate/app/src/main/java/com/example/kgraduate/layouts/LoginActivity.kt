@@ -3,6 +3,7 @@ package com.example.kgraduate.layouts
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -10,10 +11,11 @@ import android.widget.Toast
 import com.example.kgraduate.login.Login
 import com.example.kgraduate.login.LoginService
 import com.example.kgraduate.R
+import kotlinx.android.synthetic.main.activity_login.tv_register
 import kotlinx.android.synthetic.main.activity_login.signIn
 import kotlinx.android.synthetic.main.activity_login.logInId
 import kotlinx.android.synthetic.main.activity_login.logInPassword
-import kotlinx.android.synthetic.main.activity_login.tv_register
+import kotlinx.android.synthetic.main.activity_login.tv_warning
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -77,10 +79,12 @@ class LoginActivity : AppCompatActivity() {
                                 editor.putString("token", login?.token)
                                 editor.commit()
 
+                                tv_warning.setText("")
                                 startActivity(intent)
                             }
                             else -> {
-                                Toast.makeText(applicationContext,"아이디 또는 비밀번호가 잘못되었습니다!",Toast.LENGTH_SHORT).show()
+                                tv_warning.text = "아이디 또는 비밀번호가 잘못되었습니다!"
+                                tv_warning.setTextColor(Color.RED)
                             }
                         }
                     }

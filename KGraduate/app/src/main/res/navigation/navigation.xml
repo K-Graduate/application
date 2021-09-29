@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/main_fragment">
+    app:startDestination="@id/home_fragment">
 
     <fragment
         android:id="@+id/home_fragment"
@@ -13,9 +13,6 @@
         <action
             android:id="@+id/action_home_fragment_to_info_fragment"
             app:destination="@id/info_fragment" />
-        <action
-            android:id="@+id/action_home_fragment_to_issue_list_fragment"
-            app:destination="@id/issue_list_fragment" />
         <action
             android:id="@+id/action_home_fragment_to_love_fragment"
             app:destination="@id/love_fragment" />
