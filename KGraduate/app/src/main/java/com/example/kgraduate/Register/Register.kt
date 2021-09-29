@@ -1,7 +1,7 @@
 package com.example.kgraduate.Register
 
+// 회원가입 클래스
 data class Register(
-    val user_id : String,
-    val user_pwd : String,
-    val user_name : String
+    val code : String,
+    val message : String
 )

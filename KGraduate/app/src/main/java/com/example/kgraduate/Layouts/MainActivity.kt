@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.example.kgraduate.Layouts.LoginActivity.Companion.TAG
 import com.example.kgraduate.Login.Login
 import com.example.kgraduate.Login.LoginService
 import com.example.kgraduate.R
@@ -17,7 +18,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : AppCompatActivity() {
-    val TAG = "TAG_GRADUATE"
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

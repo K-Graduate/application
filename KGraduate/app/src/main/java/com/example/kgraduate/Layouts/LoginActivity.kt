@@ -21,7 +21,10 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class LoginActivity : AppCompatActivity() {
-    val TAG = "TAG_GRADUATE"
+    companion object {
+        const val TAG = "TAG_GRADUATE"
+    }
+
     var login: Login? = null
     lateinit var prefs : SharedPreferences
 
@@ -68,11 +71,18 @@ class LoginActivity : AppCompatActivity() {
                         Log.d(TAG, "onResponse Code: ${login?.code}")
                         Log.d(TAG, "onResponse Token: ${login?.token}")
 
-                        val editor = prefs.edit()
-                        editor.putString("token", login?.token)
-                        editor.commit()
+                        when(login?.code) {
+                            "200" -> {
+                                val editor = prefs.edit()
+                                editor.putString("token", login?.token)
+                                editor.commit()
 
-                        startActivity(intent)
+                                startActivity(intent)
+                            }
+                            else -> {
+                                Toast.makeText(applicationContext,"아이디 또는 비밀번호가 잘못되었습니다!",Toast.LENGTH_SHORT).show()
+                            }
+                        }
                     }
                 })
 
