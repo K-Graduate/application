@@ -4,7 +4,13 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/github/K-Graduate/application/KGraduate/app/src/main/res/layout/activity_login.xml" value="0.17603850050658562" />
+        <entry key="..\:/github/K-Graduate/application/KGraduate/app/src/main/res/layout/activity_main.xml" value="0.17603850050658562" />
         <entry key="..\:/github/K-Graduate/application/KGraduate/app/src/main/res/layout/activity_register.xml" value="0.21603260869565216" />
+        <entry key="..\:/github/K-Graduate/application/KGraduate/app/src/main/res/layout/fragment_home.xml" value="0.17603850050658562" />
+        <entry key="..\:/github/K-Graduate/application/KGraduate/app/src/main/res/layout/fragment_info.xml" value="0.17603850050658562" />
+        <entry key="..\:/github/K-Graduate/application/KGraduate/app/src/main/res/layout/fragment_love.xml" value="0.17603850050658562" />
+        <entry key="..\:/github/K-Graduate/application/KGraduate/app/src/main/res/layout/fragment_message.xml" value="0.17603850050658562" />
+        <entry key="..\:/github/K-Graduate/application/KGraduate/app/src/main/res/layout/fragment_parcelout.xml" value="0.17603850050658562" />
       </map>
     </option>
   </component>

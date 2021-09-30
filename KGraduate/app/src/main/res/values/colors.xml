@@ -10,5 +10,6 @@
     <color name="green_700">#2CCB4F</color>
     <color name="green_500">#D9FBBF</color>
     <color name="green_200">#FBFFE5</color>
+    <color name="green_custom">#D9FBBF</color>
     <color name="blue">#001AFF</color>
 </resources>
