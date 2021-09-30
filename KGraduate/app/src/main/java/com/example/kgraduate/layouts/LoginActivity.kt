@@ -79,7 +79,7 @@ class LoginActivity : AppCompatActivity() {
                                 editor.putString("token", login?.token)
                                 editor.commit()
 
-                                tv_warning.setText("")
+                                tv_warning.text = ""
                                 startActivity(intent)
                             }
                             else -> {
@@ -89,7 +89,6 @@ class LoginActivity : AppCompatActivity() {
                         }
                     }
                 })
-
             }
         }
     }
