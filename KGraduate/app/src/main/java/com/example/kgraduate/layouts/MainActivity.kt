@@ -6,10 +6,7 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.MenuItem
-import androidx.navigation.findNavController
-import com.example.kgraduate.layouts.LoginActivity.Companion.TAG
-import com.example.kgraduate.R
+import com.example.kgraduate.login.LoginActivity.Companion.TAG
 import com.example.kgraduate.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

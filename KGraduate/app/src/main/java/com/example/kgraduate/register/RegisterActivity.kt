@@ -1,4 +1,4 @@
-package com.example.kgraduate.layouts
+package com.example.kgraduate.register
 
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
@@ -7,21 +7,8 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.widget.Toast
-import com.example.kgraduate.layouts.LoginActivity.Companion.TAG
-import com.example.kgraduate.R
+import com.example.kgraduate.login.LoginActivity.Companion.TAG
 import com.example.kgraduate.databinding.ActivityRegisterBinding
-import com.example.kgraduate.register.Register
-import com.example.kgraduate.register.RegisterService
-import com.example.kgraduate.register.Repetition
-import kotlinx.android.synthetic.main.activity_register.et_pwd
-import kotlinx.android.synthetic.main.activity_register.et_id
-import kotlinx.android.synthetic.main.activity_register.iv_back
-import kotlinx.android.synthetic.main.activity_register.et_pwd_check
-import kotlinx.android.synthetic.main.activity_register.et_name
-import kotlinx.android.synthetic.main.activity_register.tv_pwd_res
-import kotlinx.android.synthetic.main.activity_register.tv_pwd_check_res
-import kotlinx.android.synthetic.main.activity_register.btn_check
-import kotlinx.android.synthetic.main.activity_register.btn_register
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

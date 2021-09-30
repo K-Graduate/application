@@ -1,4 +1,4 @@
-package com.example.kgraduate.layouts
+package com.example.kgraduate.login
 
 import android.content.Context
 import android.content.Intent
@@ -7,16 +7,9 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
-import com.example.kgraduate.login.Login
-import com.example.kgraduate.login.LoginService
-import com.example.kgraduate.R
 import com.example.kgraduate.databinding.ActivityLoginBinding
-import kotlinx.android.synthetic.main.activity_login.tv_register
-import kotlinx.android.synthetic.main.activity_login.signIn
-import kotlinx.android.synthetic.main.activity_login.logInId
-import kotlinx.android.synthetic.main.activity_login.logInPassword
-import kotlinx.android.synthetic.main.activity_login.tv_warning
+import com.example.kgraduate.layouts.MainActivity
+import com.example.kgraduate.register.RegisterActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -49,7 +42,7 @@ class LoginActivity : AppCompatActivity() {
 
         // 회원가입 하러가기
         binding.tvRegister.setOnClickListener {
-            val intent = Intent(this,RegisterActivity::class.java)
+            val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
         }
 
@@ -87,6 +80,8 @@ class LoginActivity : AppCompatActivity() {
                                 editor.commit()
 
                                 binding.tvWarning.text = ""
+                                binding.logInId.setText("")
+                                binding.logInPassword.setText("")
                                 startActivity(intent)
                             }
                             else -> {
