@@ -11,6 +11,7 @@ import android.widget.Toast
 import com.example.kgraduate.login.Login
 import com.example.kgraduate.login.LoginService
 import com.example.kgraduate.R
+import com.example.kgraduate.databinding.ActivityLoginBinding
 import kotlinx.android.synthetic.main.activity_login.tv_register
 import kotlinx.android.synthetic.main.activity_login.signIn
 import kotlinx.android.synthetic.main.activity_login.logInId
@@ -29,10 +30,12 @@ class LoginActivity : AppCompatActivity() {
 
     var login: Login? = null
     lateinit var prefs : SharedPreferences
+    lateinit var binding : ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         prefs = getSharedPreferences("Prefs",Context.MODE_PRIVATE)
 
@@ -45,21 +48,25 @@ class LoginActivity : AppCompatActivity() {
                 LoginService::class.java)
 
         // 회원가입 하러가기
-        tv_register.setOnClickListener {
+        binding.tvRegister.setOnClickListener {
             val intent = Intent(this,RegisterActivity::class.java)
             startActivity(intent)
         }
 
         // 로그인 버튼
-        signIn.setOnClickListener {
-            val id = logInId.text.toString()
-            val pwd = logInPassword.text.toString()
+        binding.signIn.setOnClickListener {
+            val id = binding.logInId.text.toString()
+            val pwd = binding.logInPassword.text.toString()
 
             if(id=="") {
-                Toast.makeText(this, "아이디를 입력하세요.", Toast.LENGTH_SHORT).show()
+                binding.tvWarning.text = "아이디를 입력하세요!"
+                binding.tvWarning.setTextColor(Color.RED)
+                //Toast.makeText(this, "아이디를 입력하세요.", Toast.LENGTH_SHORT).show()
             }
             else if(pwd=="") {
-                Toast.makeText(this,"비밀번호를 입력하세요.",Toast.LENGTH_SHORT).show()
+                binding.tvWarning.text = "비밀번호를 입력하세요!"
+                binding.tvWarning.setTextColor(Color.RED)
+                //Toast.makeText(this,"비밀번호를 입력하세요.",Toast.LENGTH_SHORT).show()
             }
             else {
                 val intent = Intent(this, MainActivity::class.java)
@@ -79,12 +86,12 @@ class LoginActivity : AppCompatActivity() {
                                 editor.putString("token", login?.token)
                                 editor.commit()
 
-                                tv_warning.text = ""
+                                binding.tvWarning.text = ""
                                 startActivity(intent)
                             }
                             else -> {
-                                tv_warning.text = "아이디 또는 비밀번호가 잘못되었습니다!"
-                                tv_warning.setTextColor(Color.RED)
+                                binding.tvWarning.text = "아이디 또는 비밀번호가 잘못되었습니다!"
+                                binding.tvWarning.setTextColor(Color.RED)
                             }
                         }
                     }
