@@ -20,6 +20,7 @@ class RegisterActivity : AppCompatActivity() {
     var repitition: Repetition? = null
     var register : Register? = null
     var repetitionCheck : Boolean = true
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
