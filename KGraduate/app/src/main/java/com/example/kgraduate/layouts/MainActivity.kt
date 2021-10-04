@@ -2,6 +2,7 @@ package com.example.kgraduate.layouts
 
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -25,6 +26,11 @@ class MainActivity : AppCompatActivity() {
 
         val prefs : SharedPreferences = getSharedPreferences("Prefs", Context.MODE_PRIVATE)
         Log.d(TAG, "onCreate: ${prefs.getString("token","")}")
+
+        binding.ivBtnWrite.setOnClickListener {
+            val intent = Intent(this,WritePostActivity::class.java)
+            startActivity(intent)
+        }
 
 
         binding.bnvMain.setOnNavigationItemSelectedListener {

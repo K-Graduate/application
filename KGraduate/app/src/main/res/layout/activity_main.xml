@@ -21,6 +21,19 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/bnv_main" />
 
+    <ImageView
+        android:id="@+id/iv_btn_write"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/edit"
+        android:scaleType="centerCrop"
+        android:padding="10dp"
+        android:background="@drawable/ic_edit_background"
+        app:layout_constraintBottom_toTopOf="@id/bnv_main"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="10dp"/>
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bnv_main"
         android:layout_width="match_parent"

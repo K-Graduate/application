@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.KGraduate"
         android:usesCleartextTraffic="true">
-        <activity android:name=".register.RegisterActivity"></activity>
+        <activity android:name=".layouts.WritePostActivity"></activity>
+        <activity android:name=".register.RegisterActivity" />
         <activity android:name=".layouts.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
