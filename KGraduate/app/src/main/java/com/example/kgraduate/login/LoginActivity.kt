@@ -7,6 +7,8 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.content.res.AppCompatResources
+import com.example.kgraduate.R
 import com.example.kgraduate.databinding.ActivityLoginBinding
 import com.example.kgraduate.layouts.MainActivity
 import com.example.kgraduate.register.RegisterActivity
@@ -54,11 +56,13 @@ class LoginActivity : AppCompatActivity() {
             if(id=="") {
                 binding.tvWarning.text = "아이디를 입력하세요!"
                 binding.tvWarning.setTextColor(Color.RED)
+                binding.logInId.background = AppCompatResources.getDrawable(applicationContext, R.drawable.login_fail)
                 //Toast.makeText(this, "아이디를 입력하세요.", Toast.LENGTH_SHORT).show()
             }
             else if(pwd=="") {
                 binding.tvWarning.text = "비밀번호를 입력하세요!"
                 binding.tvWarning.setTextColor(Color.RED)
+                binding.logInPassword.background = AppCompatResources.getDrawable(applicationContext, R.drawable.login_fail)
                 //Toast.makeText(this,"비밀번호를 입력하세요.",Toast.LENGTH_SHORT).show()
             }
             else {
@@ -82,11 +86,15 @@ class LoginActivity : AppCompatActivity() {
                                 binding.tvWarning.text = ""
                                 binding.logInId.setText("")
                                 binding.logInPassword.setText("")
+                                binding.logInId.background = AppCompatResources.getDrawable(applicationContext, R.drawable.login_edit)
+                                binding.logInPassword.background = AppCompatResources.getDrawable(applicationContext, R.drawable.login_edit)
                                 startActivity(intent)
                             }
                             else -> {
                                 binding.tvWarning.text = "아이디 또는 비밀번호가 잘못되었습니다!"
                                 binding.tvWarning.setTextColor(Color.RED)
+                                binding.logInId.background = AppCompatResources.getDrawable(applicationContext, R.drawable.login_fail)
+                                binding.logInPassword.background = AppCompatResources.getDrawable(applicationContext, R.drawable.login_fail)
                             }
                         }
                     }

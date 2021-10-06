@@ -55,7 +55,8 @@
             android:hint="Email"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:background="@drawable/loginedit"/>
+            android:paddingHorizontal="8dp"
+            android:background="@drawable/login_edit"/>
         <EditText
             android:id="@+id/logInPassword"
             android:layout_width="match_parent"
@@ -63,20 +64,21 @@
             android:hint="Password"
             android:inputType="textPassword"
             app:layout_constraintTop_toBottomOf="@+id/logInId"
-            android:background="@drawable/loginedit"
+            android:background="@drawable/login_edit"
+            android:paddingHorizontal="8dp"
             android:layout_marginTop="10dp"/>
 
         <TextView
             android:id="@+id/findPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
             android:text="비밀번호 찾기"
             android:textColor="@color/green_700"
             android:textStyle="bold"
-            app:layout_constraintTop_toTopOf="@id/logInPassword"
             app:layout_constraintBottom_toBottomOf="@id/logInPassword"
             app:layout_constraintRight_toRightOf="@id/logInPassword"
-            android:layout_marginRight="10dp"/>
+            app:layout_constraintTop_toTopOf="@id/logInPassword" />
 
         <TextView
             android:id="@+id/tv_warning"
