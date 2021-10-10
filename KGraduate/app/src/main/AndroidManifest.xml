@@ -3,6 +3,7 @@
     package="com.example.kgraduate">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -12,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.KGraduate"
         android:usesCleartextTraffic="true">
-        <activity android:name=".layouts.WritePostActivity"></activity>
+        <activity android:name=".write.WritePostActivity"></activity>
         <activity android:name=".register.RegisterActivity" />
         <activity android:name=".layouts.SplashActivity">
             <intent-filter>

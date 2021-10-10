@@ -26,6 +26,7 @@ class LoginActivity : AppCompatActivity() {
     var login: Login? = null
     lateinit var prefs : SharedPreferences
     lateinit var binding : ActivityLoginBinding
+    private lateinit var loginService : LoginService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,12 +35,12 @@ class LoginActivity : AppCompatActivity() {
 
         prefs = getSharedPreferences("Prefs",Context.MODE_PRIVATE)
 
-
-        var retrofit = Retrofit.Builder()
+        val retrofit = Retrofit.Builder()
             .baseUrl("http://18.223.182.55:8080")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-        var loginService: LoginService = retrofit.create(
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        loginService = retrofit.create(
                 LoginService::class.java)
 
         // 회원가입 하러가기
@@ -66,40 +67,46 @@ class LoginActivity : AppCompatActivity() {
                 //Toast.makeText(this,"비밀번호를 입력하세요.",Toast.LENGTH_SHORT).show()
             }
             else {
+                //login(id,pwd)
                 val intent = Intent(this, MainActivity::class.java)
-                loginService.requestLogin(id, pwd).enqueue(object : Callback<Login> {
-                    override fun onFailure(call: Call<Login>, t: Throwable) {
-                        Log.d(TAG, "onFailure: ${t.message}")
-                    }
-
-                    override fun onResponse(call: Call<Login>, response: Response<Login>) {
-                        login = response.body()
-                        Log.d(TAG, "onResponse Code: ${login?.code}")
-                        Log.d(TAG, "onResponse Token: ${login?.token}")
-
-                        when(login?.code) {
-                            "200" -> {
-                                val editor = prefs.edit()
-                                editor.putString("token", login?.token)
-                                editor.commit()
-
-                                binding.tvWarning.text = ""
-                                binding.logInId.setText("")
-                                binding.logInPassword.setText("")
-                                binding.logInId.background = AppCompatResources.getDrawable(applicationContext, R.drawable.login_edit)
-                                binding.logInPassword.background = AppCompatResources.getDrawable(applicationContext, R.drawable.login_edit)
-                                startActivity(intent)
-                            }
-                            else -> {
-                                binding.tvWarning.text = "아이디 또는 비밀번호가 잘못되었습니다!"
-                                binding.tvWarning.setTextColor(Color.RED)
-                                binding.logInId.background = AppCompatResources.getDrawable(applicationContext, R.drawable.login_fail)
-                                binding.logInPassword.background = AppCompatResources.getDrawable(applicationContext, R.drawable.login_fail)
-                            }
-                        }
-                    }
-                })
+                startActivity(intent)
             }
         }
+    }
+
+    fun login(id:String,pwd:String) {
+        val intent = Intent(this, MainActivity::class.java)
+        loginService.requestLogin(id, pwd).enqueue(object : Callback<Login> {
+            override fun onFailure(call: Call<Login>, t: Throwable) {
+                Log.d(TAG, "onFailure: ${t.message}")
+            }
+
+            override fun onResponse(call: Call<Login>, response: Response<Login>) {
+                login = response.body()
+                Log.d(TAG, "onResponse Code: ${login?.code}")
+                Log.d(TAG, "onResponse Token: ${login?.token}")
+
+                when(login?.code) {
+                    "200" -> {
+                        val editor = prefs.edit()
+                        editor.putString("token", login?.token)
+                        editor.commit()
+
+                        binding.tvWarning.text = ""
+                        binding.logInId.setText("")
+                        binding.logInPassword.setText("")
+                        binding.logInId.background = AppCompatResources.getDrawable(applicationContext, R.drawable.login_edit)
+                        binding.logInPassword.background = AppCompatResources.getDrawable(applicationContext, R.drawable.login_edit)
+                        startActivity(intent)
+                    }
+                    else -> {
+                        binding.tvWarning.text = "아이디 또는 비밀번호가 잘못되었습니다!"
+                        binding.tvWarning.setTextColor(Color.RED)
+                        binding.logInId.background = AppCompatResources.getDrawable(applicationContext, R.drawable.login_fail)
+                        binding.logInPassword.background = AppCompatResources.getDrawable(applicationContext, R.drawable.login_fail)
+                    }
+                }
+            }
+        })
     }
 }

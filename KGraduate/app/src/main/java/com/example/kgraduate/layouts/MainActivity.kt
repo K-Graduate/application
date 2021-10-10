@@ -15,6 +15,7 @@ import com.example.kgraduate.love.LoveFragment
 import com.example.kgraduate.main.HomeFragment
 import com.example.kgraduate.message.MessageFragment
 import com.example.kgraduate.parcelout.ParcelOutFragment
+import com.example.kgraduate.write.WritePostActivity
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding : ActivityMainBinding
@@ -28,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         Log.d(TAG, "onCreate: ${prefs.getString("token","")}")
 
         binding.ivBtnWrite.setOnClickListener {
-            val intent = Intent(this,WritePostActivity::class.java)
+            val intent = Intent(this, WritePostActivity::class.java)
             startActivity(intent)
         }
 
