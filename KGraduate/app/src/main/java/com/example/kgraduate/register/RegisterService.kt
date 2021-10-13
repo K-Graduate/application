@@ -7,7 +7,7 @@ import retrofit2.http.POST
 
 interface RegisterService {
     @FormUrlEncoded
-    @POST("/api/register/validation")
+    @POST("/api/checkDuplicate")
     fun checkRepitition(@Field("user_id") registerId:String) : Call<Repetition>
 
     @FormUrlEncoded

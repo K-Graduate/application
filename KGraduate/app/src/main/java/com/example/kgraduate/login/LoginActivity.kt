@@ -67,9 +67,9 @@ class LoginActivity : AppCompatActivity() {
                 //Toast.makeText(this,"비밀번호를 입력하세요.",Toast.LENGTH_SHORT).show()
             }
             else {
-                //login(id,pwd)
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
+                login(id,pwd)
+                //val intent = Intent(this, MainActivity::class.java)
+                //startActivity(intent)
             }
         }
     }
