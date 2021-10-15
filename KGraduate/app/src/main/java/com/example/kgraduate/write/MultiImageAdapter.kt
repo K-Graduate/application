@@ -5,6 +5,7 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -22,7 +23,13 @@ class MultiImageAdapter(private val context: Context) : RecyclerView.Adapter<Mul
 
     override fun onBindViewHolder(holder: MultiImageAdapter.ViewHolder, position: Int) {
         val image_uri = mData[position]
-        Glide.with(context).load(image_uri).into(holder.itemView.image)
+        Glide.with(context).load(image_uri).into(holder.image)
+
+        holder.button.setOnClickListener {
+            mData.removeAt(position)
+            notifyItemRemoved(position)
+            notifyDataSetChanged()
+        }
     }
 
     override fun getItemCount(): Int {
@@ -31,5 +38,6 @@ class MultiImageAdapter(private val context: Context) : RecyclerView.Adapter<Mul
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var image : ImageView = itemView.image
+        val button : Button = itemView.btn_recycler_item
     }
 }
