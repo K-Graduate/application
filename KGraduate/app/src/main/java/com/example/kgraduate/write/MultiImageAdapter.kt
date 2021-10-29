@@ -1,6 +1,7 @@
 package com.example.kgraduate.write
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +13,7 @@ import com.bumptech.glide.Glide
 import com.example.kgraduate.R
 import kotlinx.android.synthetic.main.image_item.view.*
 
-class MultiImageAdapter(private val context: Context) : RecyclerView.Adapter<MultiImageAdapter.ViewHolder>() {
+class MultiImageAdapter(private val context: Context, private val listener : onRemoveClick) : RecyclerView.Adapter<MultiImageAdapter.ViewHolder>() {
     var mData = mutableListOf<Uri>()
 
 
@@ -29,6 +30,8 @@ class MultiImageAdapter(private val context: Context) : RecyclerView.Adapter<Mul
             mData.removeAt(position)
             notifyItemRemoved(position)
             notifyDataSetChanged()
+
+            listener.onRemoveClicked(mData.size)
         }
     }
 
