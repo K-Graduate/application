@@ -13,7 +13,7 @@ interface PostService {
 
     @Multipart
     @POST("/api/uploadImg")
-    fun uploadImg(/*@Header("Bearer") token : String,*/ @Part img : MultipartBody.Part) : Call<PostResponse>
+    fun uploadImg(/*@Header("Bearer") token : String,*/ @Part img : MultipartBody.Part) : Call<ImageResponse>
 
     @GET("/api/post")
     fun getPost(@Header("Bearer") token : String) : Call<Post>

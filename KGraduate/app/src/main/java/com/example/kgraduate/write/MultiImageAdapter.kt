@@ -26,11 +26,14 @@ class MultiImageAdapter(private val context: Context, private val listener : onR
         val image_uri = mData[position]
         Glide.with(context).load(image_uri).into(holder.image)
 
+        // 사진 삭제 기능
         holder.button.setOnClickListener {
+            // 리스트에서 해당 사진 삭제
             mData.removeAt(position)
             notifyItemRemoved(position)
             notifyDataSetChanged()
 
+            // 액티비티에서 사진 갯수 업데이트
             listener.onRemoveClicked(mData.size)
         }
     }

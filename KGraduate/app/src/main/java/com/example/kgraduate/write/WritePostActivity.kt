@@ -1,19 +1,30 @@
 package com.example.kgraduate.write
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
+import android.database.Cursor
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.ImageDecoder
 import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kgraduate.databinding.ActivityWritePostBinding
 import com.example.kgraduate.login.LoginActivity.Companion.TAG
+import com.example.kgraduate.posts.ImageResponse
 import com.example.kgraduate.posts.PostResponse
 import com.example.kgraduate.posts.PostService
 import okhttp3.MediaType
@@ -24,6 +35,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.lang.Exception
 
@@ -38,6 +50,7 @@ class WritePostActivity : AppCompatActivity(), onRemoveClick{
 
     lateinit var prefs : SharedPreferences
 
+    // 갤러리에서 이미지 선택 후 받아오는 결과값
     private val getContent =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
             val data = result.data
@@ -45,51 +58,70 @@ class WritePostActivity : AppCompatActivity(), onRemoveClick{
                 Toast.makeText(this, "이미지를 선택하지 않았습니다.", Toast.LENGTH_LONG).show();
             }
             else{   // 이미지를 하나라도 선택한 경우
-                if(data.clipData == null){     // 이미지를 하나만 선택한 경우
-                    val imageUri = data.data!!
-                    uriList.add(imageUri)
+                val clipData = data.clipData
+                Log.e(TAG, "img count : ${clipData!!.itemCount + uriList.size}")
+                if(clipData!!.itemCount + uriList.size > 5){   // 선택한 이미지가 6장 이상인 경우
+                    Toast.makeText(this, "사진은 5장까지 선택 가능합니다.", Toast.LENGTH_LONG).show();
                 }
-                else{      // 이미지를 여러장 선택한 경우
-                    Log.d(TAG, "many pictures: ")
-                    val clipData = data.clipData
+                else{   // 선택한 이미지가 1장 이상 5장 이하인 경우
+                    Log.e(TAG, "multiple choice")
 
-                    if(clipData!!.itemCount > 5){   // 선택한 이미지가 11장 이상인 경우
-                        Toast.makeText(this, "사진은 5장까지 선택 가능합니다.", Toast.LENGTH_LONG).show();
-                    }
-                    else{   // 선택한 이미지가 1장 이상 10장 이하인 경우
-                        Log.e(TAG, "multiple choice")
+                    // 선택한 사진들 하나씩 리스트에 넣고 서버에 업로드
+                    for(i in 0 until clipData.itemCount) {
+                        // 선택한 이미지 uri
+                        val imageUri = clipData.getItemAt(i).uri
+                        try {
+                            Log.d(TAG, "$imageUri")
+                            // uri 리스트에 저장
+                            uriList.add(imageUri)
 
-                        for(i in 0 until clipData.itemCount) {
-                            val imageUri = clipData.getItemAt(i).uri
-                            try {
-                                uriList.add(imageUri)
-                                val file = File(imageUri.path!!)
-                                var requestBody : RequestBody = RequestBody.create(MediaType.parse("image/*"),file)
-                                var filePart : MultipartBody.Part = MultipartBody.Part.createFormData("uploaded_file","1",requestBody)
-                                
-                                postService.uploadImg(/*prefs.getString("token","")!!,*/ filePart).enqueue(object : Callback<PostResponse> {
-                                    override fun onResponse(
-                                        call: Call<PostResponse>,
-                                        response: Response<PostResponse>
-                                    ) {
-                                        Log.d(TAG, "onResponse: 업로드 성공! file_id : ${response.body()?.message}")
-                                    }
+                            // 선택한 이미지 절대경로 가져오기
+                            var proj: Array<String> = arrayOf(MediaStore.Images.Media.DATA)
+                            var c: Cursor = contentResolver.query(imageUri, proj, null, null, null)!!
+                            var index = c.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+                            c.moveToFirst()
 
-                                    override fun onFailure(call: Call<PostResponse>, t: Throwable) {
-                                        Log.d(TAG, "onFailure: 업로드 실패ㅠ")
-                                    }
+                            var result = c.getString(index)
+                            Log.d(TAG, "absolute path : $result")
 
-                                })
-                            } catch (e : Exception) {
-                                Log.e(TAG, "File select error: ", e)
-                            }
+                            // 선택한 이미지 File형으로 형변환
+                            val file = File(result)
+
+                            // 여기 밑에는 일단 남겨두기!
+//                                    if(!file.exists())
+//                                        file.mkdirs()
+//                                    val inputStream = applicationContext.contentResolver.openInputStream(imageUri)
+//                                    val bitmap = BitmapFactory.decodeStream(inputStream)
+//                                    val byteArrayOutputStream = ByteArrayOutputStream()
+//                                    bitmap.compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream)
+
+//                                    val requestBody : RequestBody = RequestBody.create(MediaType.parse("image/jpeg"),byteArrayOutputStream.toByteArray())
+
+                            // 이미지를 part 형태로 변환
+                            val requestBody : RequestBody = RequestBody.create(MediaType.parse("image/jpeg"),file)
+                            val filePart : MultipartBody.Part = MultipartBody.Part.createFormData("img","1.jpg",requestBody)
+
+                            // 서버에 업로드 요청
+                            postService.uploadImg(/*prefs.getString("token","")!!,*/ filePart).enqueue(object : Callback<ImageResponse> {
+                                override fun onResponse(
+                                    call: Call<ImageResponse>,
+                                    response: Response<ImageResponse>
+                                ) {
+                                    // response로 file_id를 받아옴
+                                    Log.d(TAG, "onResponse: 사진 업로드 성공! file_id : ${response.body()?.file_id}")
+                                }
+                                override fun onFailure(call: Call<ImageResponse>, t: Throwable) {
+                                    Log.d(TAG, "onFailure: ${t.message}")
+                                }
+                            })
+                        } catch (e : Exception) {
+                            Log.e(TAG, "File select error: ", e)
                         }
-                        binding.tvPicture.text = "${uriList.size}"
-                        mAdapter.mData = uriList
-                        mAdapter.notifyDataSetChanged()
-
-
                     }
+                    // 선택한 사진 갯수 업데이트 및 어댑터 새로고침
+                    binding.tvPicture.text = "${uriList.size}"
+                    mAdapter.mData = uriList
+                    mAdapter.notifyDataSetChanged()
                 }
             }
         }
@@ -98,6 +130,11 @@ class WritePostActivity : AppCompatActivity(), onRemoveClick{
         super.onCreate(savedInstanceState)
         binding = ActivityWritePostBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // 이미지 가져오는 권한 설정
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),0)
+        }
 
         retrofit = Retrofit.Builder()
             .baseUrl("http://18.223.182.55:8080")
@@ -109,14 +146,17 @@ class WritePostActivity : AppCompatActivity(), onRemoveClick{
 
         prefs = getSharedPreferences("Prefs", Context.MODE_PRIVATE)
 
+        // 어댑터 설정
         mAdapter = MultiImageAdapter(this,this)
         binding.rvPicture.adapter = mAdapter   // 리사이클러뷰에 어댑터 세팅
         binding.rvPicture.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)    // 리사이클러뷰 수평 스크롤 적용
 
+        // 창 닫기
         binding.tvClose.setOnClickListener {
             finish()
         }
 
+        // 갤러리에서 이미지 가져오기
         binding.ivCamera.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK)
             intent.type = MediaStore.Images.Media.CONTENT_TYPE
@@ -125,6 +165,7 @@ class WritePostActivity : AppCompatActivity(), onRemoveClick{
             getContent.launch(intent)
         }
 
+        // 게시글 업로드 버튼
         binding.tvPost.setOnClickListener {
             postService.registerPost(/*prefs.getString("token","")!!,*/ "분양", "hehtrhrth", "reghregergerg", "2021/10/29-14-00-05", "test", "1").enqueue(object : Callback<PostResponse> {
                 override fun onResponse(
@@ -150,6 +191,7 @@ class WritePostActivity : AppCompatActivity(), onRemoveClick{
         }
     }
 
+    // 사진 삭제 버튼 클릭 시 사진 갯수 업데이트
     override fun onRemoveClicked(value: Int) {
         binding.tvPicture.text = value.toString()
     }
