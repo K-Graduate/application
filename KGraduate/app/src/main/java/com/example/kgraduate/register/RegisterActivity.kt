@@ -51,7 +51,7 @@ class RegisterActivity : AppCompatActivity() {
             }
 
             override fun afterTextChanged(s: Editable?) {
-                //repetitionCheck = false
+                repetitionCheck = false
             }
         })
 
@@ -126,17 +126,18 @@ class RegisterActivity : AppCompatActivity() {
                 registerService.checkRepitition(id).enqueue(object : Callback<Repetition> {
                     override fun onResponse(call: Call<Repetition>, response: Response<Repetition>) {
                         repitition = response.body()
-                        when (repitition?.result){
-                            "exist" -> {
-                                binding.tvIdRes.text = "해당 아이디는 이미 존재합니다!"
-                                binding.tvIdRes.setTextColor(Color.RED)
-                                //Toast.makeText(applicationContext,"해당 아이디는 이미 존재합니다!",Toast.LENGTH_SHORT).show()
-                            }
-                            else -> {
+                        Log.d(TAG, "onResponse: ${repitition?.code}")
+                        when (repitition?.code){
+                            "200" -> {
                                 repetitionCheck = true
                                 binding.tvIdRes.text = "해당 아이디는 사용할 수 있습니다!"
                                 binding.tvIdRes.setTextColor(Color.BLUE)
-                                //Toast.makeText(applicationContext,"해당 아이디는 사용할 수 있습니다!",Toast.LENGTH_SHORT).show()
+                                Toast.makeText(applicationContext,"해당 아이디는 사용할 수 있습니다!",Toast.LENGTH_SHORT).show()
+                            }
+                            else -> {
+                                binding.tvIdRes.text = "해당 아이디는 이미 존재합니다!"
+                                binding.tvIdRes.setTextColor(Color.RED)
+                                Toast.makeText(applicationContext,"해당 아이디는 이미 존재합니다!",Toast.LENGTH_SHORT).show()
                             }
                         }
                     }
@@ -168,6 +169,7 @@ class RegisterActivity : AppCompatActivity() {
                                     binding.etPwdCheck.setText("")
                                     binding.etId.setText("")
                                     binding.etName.setText("")
+                                    binding.tvIdRes.text = ""
 
                                     Toast.makeText(applicationContext,"회원가입이 정상적으로 완료됐습니다!",Toast.LENGTH_SHORT).show()
                                 }
