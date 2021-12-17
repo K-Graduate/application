@@ -9,6 +9,8 @@ import android.util.Log
 import android.widget.Toast
 import com.example.kgraduate.login.LoginActivity.Companion.TAG
 import com.example.kgraduate.databinding.ActivityRegisterBinding
+import com.example.kgraduate.repository.entity.Register
+import com.example.kgraduate.repository.entity.Repetition
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -16,10 +18,10 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class RegisterActivity : AppCompatActivity() {
-    lateinit var binding : ActivityRegisterBinding
+    lateinit var binding: ActivityRegisterBinding
     var repitition: Repetition? = null
-    var register : Register? = null
-    var repetitionCheck : Boolean = true
+    var register: Register? = null
+    var repetitionCheck: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +40,8 @@ class RegisterActivity : AppCompatActivity() {
             .build()
 
         val registerService: RegisterService = retrofit.create(
-            RegisterService::class.java)
+            RegisterService::class.java
+        )
 
         // 아이디 입력 변화시 중복 확인 여부 초기화
         binding.etId.addTextChangedListener(object : TextWatcher {
@@ -56,7 +59,7 @@ class RegisterActivity : AppCompatActivity() {
         })
 
         // 비밀번호 조건 확인 코드
-        binding.etPwd.addTextChangedListener(object : TextWatcher{
+        binding.etPwd.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
             }
@@ -68,18 +71,16 @@ class RegisterActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable?) {
                 val pwd = binding.etPwd.text.toString()
 
-                if(pwd.length in 8..15) {
-                    if(isPasswordFormat(pwd)) {
+                if (pwd.length in 8..15) {
+                    if (isPasswordFormat(pwd)) {
 
                         binding.tvPwdRes.text = "비밀번호가 조건에 맞습니다!"
                         binding.tvPwdRes.setTextColor(Color.BLUE)
-                    }
-                    else {
+                    } else {
                         binding.tvPwdRes.text = "비밀번호가 조건에 맞지 않습니다!"
                         binding.tvPwdRes.setTextColor(Color.RED)
                     }
-                }
-                else {
+                } else {
                     binding.tvPwdRes.text = "비밀번호가 조건에 맞지 않습니다!"
                     binding.tvPwdRes.setTextColor(Color.RED)
                 }
@@ -87,7 +88,7 @@ class RegisterActivity : AppCompatActivity() {
         })
 
         // 비밀번호 확인 코드
-        binding.etPwdCheck.addTextChangedListener(object : TextWatcher{
+        binding.etPwdCheck.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
             }
@@ -99,19 +100,17 @@ class RegisterActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable?) {
                 val pwd = binding.etPwd.text.toString()
                 val check_pwd = binding.etPwdCheck.text.toString()
-                if(check_pwd.isNotEmpty()) {
-                    if(pwd.length != check_pwd.length) {
+                if (check_pwd.isNotEmpty()) {
+                    if (pwd.length != check_pwd.length) {
                         binding.tvPwdCheckRes.text = "비밀번호가 일치하지 않습니다!"
                         binding.tvPwdCheckRes.setTextColor(Color.RED)
-                    }
-                    else {
-                        if(pwd == check_pwd) {
+                    } else {
+                        if (pwd == check_pwd) {
                             binding.tvPwdCheckRes.text = "비밀번호가 일치합니다!"
                             binding.tvPwdCheckRes.setTextColor(Color.BLUE)
                         }
                     }
-                }
-                else {
+                } else {
                     binding.tvPwdCheckRes.text = "비밀번호가 일치하지 않습니다!"
                     binding.tvPwdCheckRes.setTextColor(Color.RED)
                 }
@@ -122,22 +121,33 @@ class RegisterActivity : AppCompatActivity() {
         binding.btnCheck.setOnClickListener {
             val id = binding.etId.text.toString()
             // 이메일 형식 확인
-            if(id.contains("@") and id.contains(".com")) {
+            if (id.contains("@") and id.contains(".com")) {
                 registerService.checkRepitition(id).enqueue(object : Callback<Repetition> {
-                    override fun onResponse(call: Call<Repetition>, response: Response<Repetition>) {
+                    override fun onResponse(
+                        call: Call<Repetition>,
+                        response: Response<Repetition>
+                    ) {
                         repitition = response.body()
                         Log.d(TAG, "onResponse: ${repitition?.code}")
-                        when (repitition?.code){
+                        when (repitition?.code) {
                             "200" -> {
                                 repetitionCheck = true
                                 binding.tvIdRes.text = "해당 아이디는 사용할 수 있습니다!"
                                 binding.tvIdRes.setTextColor(Color.BLUE)
-                                Toast.makeText(applicationContext,"해당 아이디는 사용할 수 있습니다!",Toast.LENGTH_SHORT).show()
+                                Toast.makeText(
+                                    applicationContext,
+                                    "해당 아이디는 사용할 수 있습니다!",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             }
                             else -> {
                                 binding.tvIdRes.text = "해당 아이디는 이미 존재합니다!"
                                 binding.tvIdRes.setTextColor(Color.RED)
-                                Toast.makeText(applicationContext,"해당 아이디는 이미 존재합니다!",Toast.LENGTH_SHORT).show()
+                                Toast.makeText(
+                                    applicationContext,
+                                    "해당 아이디는 이미 존재합니다!",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             }
                         }
                     }
@@ -146,8 +156,7 @@ class RegisterActivity : AppCompatActivity() {
                         Log.d(TAG, "onFailure: ${t.message}")
                     }
                 })
-            }
-            else {
+            } else {
                 binding.tvIdRes.text = "이메일 형식이 잘못됐습니다!"
                 binding.tvIdRes.setTextColor(Color.RED)
             }
@@ -155,38 +164,51 @@ class RegisterActivity : AppCompatActivity() {
 
         // 회원 가입 코드
         binding.btnRegister.setOnClickListener {
-            when(repetitionCheck) {
+            when (repetitionCheck) {
                 true -> {
                     val id = binding.etId.text.toString()
                     val pwd = binding.etPwd.text.toString()
                     val name = binding.etName.text.toString()
-                    registerService.requestRegister(id,pwd,name).enqueue(object : Callback<Register> {
-                        override fun onResponse(call: Call<Register>, response: Response<Register>) {
-                            register = response.body()
-                            when (register?.code) {
-                                "200" -> {
-                                    binding.etPwd.setText("")
-                                    binding.etPwdCheck.setText("")
-                                    binding.etId.setText("")
-                                    binding.etName.setText("")
-                                    binding.tvIdRes.text = ""
+                    registerService.requestRegister(id, pwd, name)
+                        .enqueue(object : Callback<Register> {
+                            override fun onResponse(
+                                call: Call<Register>,
+                                response: Response<Register>
+                            ) {
+                                register = response.body()
+                                when (register?.code) {
+                                    "200" -> {
+                                        binding.etPwd.setText("")
+                                        binding.etPwdCheck.setText("")
+                                        binding.etId.setText("")
+                                        binding.etName.setText("")
+                                        binding.tvIdRes.text = ""
 
-                                    Toast.makeText(applicationContext,"회원가입이 정상적으로 완료됐습니다!",Toast.LENGTH_SHORT).show()
-                                }
-                                else -> {
-                                    Toast.makeText(applicationContext,"회원가입 도중 오류가 발생했습니다!",Toast.LENGTH_SHORT).show()
+                                        Toast.makeText(
+                                            applicationContext,
+                                            "회원가입이 정상적으로 완료됐습니다!",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
+                                    else -> {
+                                        Toast.makeText(
+                                            applicationContext,
+                                            "회원가입 도중 오류가 발생했습니다!",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
                                 }
                             }
-                        }
 
-                        override fun onFailure(call: Call<Register>, t: Throwable) {
-                            Log.d(TAG, "onFailure: ${t.message}")
-                        }
-                    })
+                            override fun onFailure(call: Call<Register>, t: Throwable) {
+                                Log.d(TAG, "onFailure: ${t.message}")
+                            }
+                        })
                 }
                 false -> {
                     Log.d(TAG, "회원가입 버튼 클릭")
-                    Toast.makeText(applicationContext,"아이디 중복 확인을 해주십시오!",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(applicationContext, "아이디 중복 확인을 해주십시오!", Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
         }

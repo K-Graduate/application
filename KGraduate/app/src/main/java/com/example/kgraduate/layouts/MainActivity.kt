@@ -18,15 +18,15 @@ import com.example.kgraduate.parcelout.ParcelOutFragment
 import com.example.kgraduate.write.WritePostActivity
 
 class MainActivity : AppCompatActivity() {
-    lateinit var binding : ActivityMainBinding
+    lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val prefs : SharedPreferences = getSharedPreferences("Prefs", Context.MODE_PRIVATE)
-        Log.d(TAG, "onCreate: ${prefs.getString("token","")}")
+        val prefs: SharedPreferences = getSharedPreferences("Prefs", Context.MODE_PRIVATE)
+        Log.d(TAG, "onCreate: ${prefs.getString("token", "")}")
 
         binding.ivBtnWrite.setOnClickListener {
             val intent = Intent(this, WritePostActivity::class.java)
@@ -35,31 +35,26 @@ class MainActivity : AppCompatActivity() {
 
 
         binding.bnvMain.setOnNavigationItemSelectedListener {
-            when(it.itemId) {
+            when (it.itemId) {
                 R.id.loveBtn -> {
-                    supportFragmentManager.beginTransaction().
-                    replace(R.id.container,LoveFragment()).
-                    commit()
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.container, LoveFragment()).commit()
                 }
                 R.id.homeBtn -> {
-                    supportFragmentManager.beginTransaction().
-                    replace(R.id.container,HomeFragment()).
-                    commit()
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.container, HomeFragment()).commit()
                 }
                 R.id.messageBtn -> {
-                    supportFragmentManager.beginTransaction().
-                    replace(R.id.container,MessageFragment()).
-                    commit()
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.container, MessageFragment()).commit()
                 }
                 R.id.infoBtn -> {
-                    supportFragmentManager.beginTransaction().
-                    replace(R.id.container,InfoFragment()).
-                    commit()
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.container, InfoFragment()).commit()
                 }
                 R.id.parcelOutBtn -> {
-                    supportFragmentManager.beginTransaction().
-                    replace(R.id.container,ParcelOutFragment()).
-                    commit()
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.container, ParcelOutFragment()).commit()
                 }
             }
             true

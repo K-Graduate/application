@@ -1,4 +1,4 @@
-package com.example.kgraduate.posts
+package com.example.kgraduate.network
 
 import com.example.kgraduate.repository.dto.response.ImageResponse
 import com.example.kgraduate.repository.dto.response.PostResponse
@@ -7,10 +7,10 @@ import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.*
 
-interface PostService {
+interface ContentApi {
     @FormUrlEncoded
     @POST("/api/post")
-    fun registerPost(
+    fun registerPost1(
         /*@Header("Bearer") token : String,*/
         @Field("type") type: String,
         @Field("title") title: String,
@@ -22,13 +22,13 @@ interface PostService {
 
     @Multipart
     @POST("/api/uploadImg")
-    fun uploadImg(
+    fun uploadImg1(
         /*@Header("Bearer") token : String,*/
         @Part img: MultipartBody.Part
     ): Call<ImageResponse>
 
     @GET("/api/post")
-    fun getPost(
+    fun getPost1(
         @Header("Bearer")
         token: String
     ): Call<Post>

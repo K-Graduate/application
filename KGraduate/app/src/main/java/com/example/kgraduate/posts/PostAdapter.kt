@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.kgraduate.R
+import com.example.kgraduate.repository.entity.Post
 import kotlinx.android.synthetic.main.recycler_post_item.view.*
 
 class PostAdapter(private val context : Context) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {

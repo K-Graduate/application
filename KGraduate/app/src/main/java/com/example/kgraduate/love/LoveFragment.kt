@@ -9,8 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.kgraduate.databinding.FragmentLoveBinding
+import com.example.kgraduate.repository.entity.Post
 import com.example.kgraduate.login.LoginActivity.Companion.TAG
-import com.example.kgraduate.posts.Post
 import com.example.kgraduate.posts.PostAdapter
 import com.example.kgraduate.posts.PostService
 import retrofit2.Call

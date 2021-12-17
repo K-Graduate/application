@@ -10,6 +10,7 @@ import android.util.Log
 import androidx.appcompat.content.res.AppCompatResources
 import com.example.kgraduate.R
 import com.example.kgraduate.databinding.ActivityLoginBinding
+import com.example.kgraduate.repository.entity.Login
 import com.example.kgraduate.layouts.MainActivity
 import com.example.kgraduate.register.RegisterActivity
 import retrofit2.Call
