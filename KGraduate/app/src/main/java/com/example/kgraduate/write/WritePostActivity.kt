@@ -22,9 +22,15 @@ import com.example.kgraduate.repository.dto.response.PostResponse
 import com.example.kgraduate.login.LoginActivity.Companion.TAG
 import com.example.kgraduate.posts.PostService
 import com.example.kgraduate.repository.dto.response.ImageResponse
+import com.example.kgraduate.repository.entity.Post
+import com.google.gson.Gson
+import com.google.gson.JsonArray
+import com.google.gson.JsonObject
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import org.json.JSONArray
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -36,6 +42,7 @@ import java.lang.Exception
 class WritePostActivity : AppCompatActivity(), onRemoveClick {
     lateinit var binding: ActivityWritePostBinding
     private val uriList = mutableListOf<Uri>()
+    private var idList = arrayListOf<String>()
     lateinit var mAdapter: MultiImageAdapter
 
     lateinit var retrofit: Retrofit
@@ -108,6 +115,7 @@ class WritePostActivity : AppCompatActivity(), onRemoveClick {
                                             TAG,
                                             "onResponse: 사진 업로드 성공! file_id : ${response.body()?.file_id}"
                                         )
+                                        idList.add(response.body()?.file_id!!)
                                     }
 
                                     override fun onFailure(
@@ -148,7 +156,8 @@ class WritePostActivity : AppCompatActivity(), onRemoveClick {
         }
 
         retrofit = Retrofit.Builder()
-            .baseUrl("http://18.223.182.55:8080")
+            .baseUrl("http://175.123.112.88:8080")
+            //.baseUrl("http://18.223.182.55:8080")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
@@ -180,12 +189,21 @@ class WritePostActivity : AppCompatActivity(), onRemoveClick {
 
         // 게시글 업로드 버튼
         binding.tvPost.setOnClickListener {
-            postService.registerPost(/*prefs.getString("token","")!!,*/ "분양",
-                "hehtrhrth",
-                "reghregergerg",
-                "2021/10/29-14-00-05",
-                "test",
-                "1"
+            val jsonObject = JsonObject()
+            jsonObject.addProperty("type", "분양")
+            jsonObject.addProperty("title", binding.etTitle.text.toString())
+            jsonObject.addProperty("content",binding.etContent.text.toString())
+            jsonObject.addProperty("creator_name","tester")
+            jsonObject.addProperty("creator_id", "11")
+            val jsonArray = JsonArray()
+            idList.forEach {
+                jsonArray.add(it)
+            }
+            jsonObject.add("file_id",jsonArray)
+
+
+            postService.registerPost(/*"Bearer " + prefs.getString("token","")!!,*/
+                jsonObject
             ).enqueue(object : Callback<PostResponse> {
                 override fun onResponse(
                     call: Call<PostResponse>,
@@ -195,8 +213,10 @@ class WritePostActivity : AppCompatActivity(), onRemoveClick {
                     when (body?.code) {
                         "200" -> {
                             Log.d(TAG, "onResponse: 업로드 완료!")
+                            finish()
                         }
                         else -> {
+                            Log.d(TAG, "code: ${body?.code}")
                             Log.d(TAG, "onResponse: ${body?.message}")
                         }
                     }
@@ -214,4 +234,6 @@ class WritePostActivity : AppCompatActivity(), onRemoveClick {
     override fun onRemoveClicked(value: Int) {
         binding.tvPicture.text = value.toString()
     }
+
+    class innerPost(val type: String, val title: String, val content: String, val creator_name: String, val creator_id: String, val file_id: JSONArray)
 }

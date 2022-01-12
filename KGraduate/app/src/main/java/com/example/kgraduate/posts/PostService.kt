@@ -2,22 +2,25 @@ package com.example.kgraduate.posts
 
 import com.example.kgraduate.repository.dto.response.ImageResponse
 import com.example.kgraduate.repository.dto.response.PostResponse
+import com.example.kgraduate.repository.dto.response.getPostResponse
 import com.example.kgraduate.repository.entity.Post
+import com.google.gson.JsonObject
 import okhttp3.MultipartBody
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.http.*
 
 interface PostService {
-    @FormUrlEncoded
     @POST("/api/post")
     fun registerPost(
-        /*@Header("Bearer") token : String,*/
+        /*@Header("Bearer") token : String,
         @Field("type") type: String,
         @Field("title") title: String,
         @Field("content") content: String,
         @Field("creator_name") creator_name: String,
         @Field("creator_id") creator_id: String,
-        @Field("file_id") file_id: String
+        @Field("file_id") file_id: String*/
+    @Body postData: JsonObject
     ): Call<PostResponse>
 
     @Multipart
@@ -27,9 +30,10 @@ interface PostService {
         @Part img: MultipartBody.Part
     ): Call<ImageResponse>
 
+
     @GET("/api/post")
     fun getPost(
-        @Header("Bearer")
-        token: String
-    ): Call<Post>
+        @Header("Authorization") token: String/*,
+        @Field("type") type: String*/
+    ): Call<getPostResponse>
 }
