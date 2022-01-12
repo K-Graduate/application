@@ -8,13 +8,13 @@ import androidx.fragment.app.Fragment
 import com.example.kgraduate.databinding.FragmentMessageBinding
 
 class MessageFragment : Fragment() {
-    lateinit var binding : FragmentMessageBinding
+    lateinit var binding: FragmentMessageBinding
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentMessageBinding.inflate(inflater,container,false)
+        binding = FragmentMessageBinding.inflate(inflater, container, false)
         return binding.root
     }
 }

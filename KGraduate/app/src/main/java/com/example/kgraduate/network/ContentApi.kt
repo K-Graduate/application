@@ -1,39 +1,35 @@
-package com.example.kgraduate.posts
+package com.example.kgraduate.network
 
 import com.example.kgraduate.repository.dto.response.ImageResponse
 import com.example.kgraduate.repository.dto.response.PostResponse
-import com.example.kgraduate.repository.dto.response.getPostResponse
 import com.example.kgraduate.repository.entity.Post
-import com.google.gson.JsonObject
 import okhttp3.MultipartBody
-import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.http.*
 
-interface PostService {
+interface ContentApi {
+    @FormUrlEncoded
     @POST("/api/post")
-    fun registerPost(
-        /*@Header("Bearer") token : String,
+    fun registerPost1(
+        /*@Header("Bearer") token : String,*/
         @Field("type") type: String,
         @Field("title") title: String,
         @Field("content") content: String,
         @Field("creator_name") creator_name: String,
         @Field("creator_id") creator_id: String,
-        @Field("file_id") file_id: String*/
-    @Body postData: JsonObject
+        @Field("file_id") file_id: String
     ): Call<PostResponse>
 
     @Multipart
     @POST("/api/uploadImg")
-    fun uploadImg(
+    fun uploadImg1(
         /*@Header("Bearer") token : String,*/
         @Part img: MultipartBody.Part
     ): Call<ImageResponse>
 
-
     @GET("/api/post")
-    fun getPost(
-        @Header("Authorization") token: String/*,
-        @Field("type") type: String*/
-    ): Call<getPostResponse>
+    fun getPost1(
+        @Header("Bearer")
+        token: String
+    ): Call<Post>
 }
