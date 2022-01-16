@@ -19,8 +19,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class RegisterActivity : AppCompatActivity() {
     lateinit var binding: ActivityRegisterBinding
-    var repitition: Repetition? = null
     var register: Register? = null
+    var repetition: Repetition? = null
     var repetitionCheck: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -121,17 +121,20 @@ class RegisterActivity : AppCompatActivity() {
         // 아이디 중복 확인 코드
         binding.btnCheck.setOnClickListener {
             val id = binding.etId.text.toString()
+
+
             // 이메일 형식 확인
             if (id.contains("@") and id.contains(".com")) {
-                registerService.checkRepitition(id).enqueue(object : Callback<Repetition> {
+                Log.d(TAG, "id : $id")
+                registerService.checkRepetition(id).enqueue(object : Callback<Repetition> {
                     override fun onResponse(
                         call: Call<Repetition>,
                         response: Response<Repetition>
                     ) {
-                        repitition = response.body()
-                        Log.d(TAG, "onResponse: ${repitition?.code}")
-                        when (repitition?.code) {
-                            "200" -> {
+                        repetition = response.body()
+                        Log.d(TAG, "onResponse: $repetition")
+                        when (repetition?.code) {
+                            200 -> {
                                 repetitionCheck = true
                                 binding.tvIdRes.text = "해당 아이디는 사용할 수 있습니다!"
                                 binding.tvIdRes.setTextColor(Color.BLUE)
@@ -190,6 +193,7 @@ class RegisterActivity : AppCompatActivity() {
                                             "회원가입이 정상적으로 완료됐습니다!",
                                             Toast.LENGTH_SHORT
                                         ).show()
+                                        finish()
                                     }
                                     else -> {
                                         Toast.makeText(

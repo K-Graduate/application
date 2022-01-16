@@ -1,5 +1,7 @@
 package com.example.kgraduate.repository.entity
 
+import java.util.*
+
 data class Post(
     val post_id: String,
     val post_type: String,
@@ -10,7 +12,8 @@ data class Post(
     val post_comment: String,
     val post_creator_id: String,
     val post_creator_name: String,
-    val post_image: String
+    val post_image: ArrayList<String>,
+    val offset: String
 )
 
 // 아이디 등록 클래스
@@ -21,7 +24,8 @@ data class Register(
 
 // 아이디 중복 확인 클래스
 data class Repetition(
-    val code: String
+    val code: Int,
+    val message: String
 )
 
 data class Login(
