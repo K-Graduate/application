@@ -20,7 +20,7 @@ interface PostService {
         @Field("creator_name") creator_name: String,
         @Field("creator_id") creator_id: String,
         @Field("file_id") file_id: String*/
-    @Body postData: JsonObject
+        @Body postData: JsonObject
     ): Call<PostResponse>
 
     @Multipart
@@ -36,4 +36,5 @@ interface PostService {
         @Header("Authorization") token: String/*,
         @Field("type") type: String*/
     ): Call<getPostResponse>
+
 }

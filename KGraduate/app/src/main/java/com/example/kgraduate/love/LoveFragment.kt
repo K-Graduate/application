@@ -40,8 +40,8 @@ class LoveFragment : Fragment() {
         prefs = context?.getSharedPreferences("Prefs", Context.MODE_PRIVATE)!!
 
         retrofit = Retrofit.Builder()
-            //.baseUrl("http://175.123.112.88:8080")
-            .baseUrl("http://18.223.182.55:8080")
+            .baseUrl("http://175.123.112.88:8080")
+            //.baseUrl("http://18.223.182.55:8080")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
@@ -54,18 +54,23 @@ class LoveFragment : Fragment() {
         postAdapter = PostAdapter(requireContext())
         binding.rvLove.adapter = postAdapter
 
-
         val authorization = "Bearer " + prefs.getString("token","")
         postService.getPost(authorization).enqueue(object : Callback<getPostResponse> {
             override fun onResponse(call: Call<getPostResponse>, response: Response<getPostResponse>) {
                 Log.d(TAG, "onResponse: Success!")
-                val posts = response.body()!!.posts
-                for(i in 0 until posts.size()) {
-                    val post = posts.get(i)
-                    val gson = Gson()
 
-                    datas.add(gson.fromJson(post,Post::class.java))
+                val posts = response.body()!!.posts
+
+                for(i in 0 until posts.size()) {
+                    // json to Post 변환
+                    val gson = Gson()
+                    val post = gson.fromJson(posts.get(i), Post::class.java)
+
+                    // post어댑터에 추가
+                    Log.d(TAG, "post data 추가: $post")
+                    datas.add(post)
                 }
+                // 어댑터 데이터 업데이트
                 postAdapter.postdatas = datas
                 postAdapter.notifyDataSetChanged()
             }

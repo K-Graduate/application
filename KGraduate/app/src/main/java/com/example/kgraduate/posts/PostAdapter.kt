@@ -1,6 +1,7 @@
 package com.example.kgraduate.posts
 
 import android.content.Context
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,10 +33,13 @@ class PostAdapter(private val context : Context) : RecyclerView.Adapter<PostAdap
         private val postComment : TextView = itemView.tv_comment_count
 
         fun bind(item: Post) {
-            Glide.with(itemView).load(item.post_image).into(postImg)
-            postContent.text = item.post_content
-            postLike.text = item.post_like
-            postComment.text = item.post_comment
+            // 사진 등록
+            //Glide.with(itemView).load(item.post_image).into(postImg)
+            Glide.with(itemView).load(Uri.parse("http://175.123.112.88:8080/api/images/44f38e34-8246-4db0-a7f2-f498193903d9.jpg")).into(postImg)
+            postContent.text = item.content
+            postLike.text = item.like
+            // 댓글
+            //postComment.text = item.post_comment
         }
     }
 

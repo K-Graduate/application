@@ -7,12 +7,15 @@ import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.database.Cursor
 import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultCallback
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -137,10 +140,63 @@ class WritePostActivity : AppCompatActivity(), onRemoveClick {
             }
         }
 
+    private val launcher =
+        registerForActivityResult(ActivityResultContracts.GetMultipleContents()) { it ->
+            it.forEach {
+                uriList.add(it)
+
+                var proj: Array<String> = arrayOf(MediaStore.Images.Media.DATA)
+                var c: Cursor =
+                    contentResolver.query(it, proj, null, null, null)!!
+                var index = c.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+                c.moveToFirst()
+
+                var result = c.getString(index)
+                Log.d(TAG, "absolute path : $result")
+
+                // 선택한 이미지 File형으로 형변환
+                val file = File(result)
+
+                val requestBody: RequestBody =
+                    RequestBody.create(MediaType.parse("image/jpeg"), file)
+                val filePart: MultipartBody.Part =
+                    MultipartBody.Part.createFormData("img", "1.jpg", requestBody)
+
+                // 서버에 업로드 요청
+                postService.uploadImg(/*prefs.getString("token","")!!,*/ filePart)
+                    .enqueue(object : Callback<ImageResponse> {
+                        override fun onResponse(
+                            call: Call<ImageResponse>,
+                            response: Response<ImageResponse>
+                        ) {
+                            // response로 file_id를 받아옴
+                            Log.d(
+                                TAG,
+                                "onResponse: 사진 업로드 성공! file_id : ${response.body()?.file_id}"
+                            )
+                            idList.add(response.body()?.file_id!!)
+                        }
+
+                        override fun onFailure(
+                            call: Call<ImageResponse>,
+                            t: Throwable
+                        ) {
+                            Log.d(TAG, "onFailure: ${t.message}")
+                        }
+                    })
+            }
+            binding.tvPicture.text = "${uriList.size}"
+            mAdapter.mData = uriList
+            mAdapter.notifyDataSetChanged()
+        }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityWritePostBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
 
         // 이미지 가져오는 권한 설정
         if (ContextCompat.checkSelfPermission(
@@ -180,11 +236,12 @@ class WritePostActivity : AppCompatActivity(), onRemoveClick {
 
         // 갤러리에서 이미지 가져오기
         binding.ivCamera.setOnClickListener {
-            val intent = Intent(Intent.ACTION_PICK)
-            intent.type = MediaStore.Images.Media.CONTENT_TYPE
-            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-            intent.data = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-            getContent.launch(intent)
+//            val intent = Intent(Intent.ACTION_PICK)
+//            intent.type = MediaStore.Images.Media.CONTENT_TYPE
+//            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+//            intent.data = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+//            getContent.launch(intent)
+            launcher.launch("image/*")
         }
 
         // 게시글 업로드 버튼
@@ -195,13 +252,15 @@ class WritePostActivity : AppCompatActivity(), onRemoveClick {
             jsonObject.addProperty("content",binding.etContent.text.toString())
             jsonObject.addProperty("creator_name","tester")
             jsonObject.addProperty("creator_id", "11")
+            jsonObject.addProperty("creator_time","2022-01-17 23:49:23")
+            //jsonObject.addProperty("comments","0")
+            //jsonObject.addProperty("like","0")
             val jsonArray = JsonArray()
             idList.forEach {
                 jsonArray.add(it)
             }
             jsonObject.add("file_id",jsonArray)
-
-
+            Log.d(TAG, "게시물 post : $jsonObject")
             postService.registerPost(/*"Bearer " + prefs.getString("token","")!!,*/
                 jsonObject
             ).enqueue(object : Callback<PostResponse> {

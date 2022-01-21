@@ -1,19 +1,19 @@
 package com.example.kgraduate.repository.entity
 
-import java.util.*
 
 data class Post(
-    val post_id: String,
-    val post_type: String,
-    val post_title: String,
-    val post_content: String,
-    val post_create_time: String,
-    val post_like: String,
-    val post_comment: String,
-    val post_creator_id: String,
-    val post_creator_name: String,
-    val post_image: ArrayList<String>,
-    val offset: String
+    val id: String,
+    val type: String,
+    val title: String,
+    val content: String,
+    val create_time: String,
+    val like: String,
+    val creator_name: String,
+    val file_id: String,
+    val status: String,
+    val createdAt: String,
+    val updatedAt: String,
+    val post_creator_id: String
 )
 
 // 아이디 등록 클래스
