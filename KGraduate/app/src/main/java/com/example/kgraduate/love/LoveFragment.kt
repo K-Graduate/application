@@ -1,6 +1,7 @@
 package com.example.kgraduate.love
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
@@ -8,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.kgraduate.PostDetailActivity
 import com.example.kgraduate.databinding.FragmentLoveBinding
 import com.example.kgraduate.repository.entity.Post
 import com.example.kgraduate.login.LoginActivity.Companion.TAG
@@ -55,6 +57,7 @@ class LoveFragment : Fragment() {
         binding.rvLove.adapter = postAdapter
 
         val authorization = "Bearer " + prefs.getString("token","")
+
         postService.getPost(authorization).enqueue(object : Callback<getPostResponse> {
             override fun onResponse(call: Call<getPostResponse>, response: Response<getPostResponse>) {
                 Log.d(TAG, "onResponse: Success!")
@@ -67,7 +70,7 @@ class LoveFragment : Fragment() {
                     val post = gson.fromJson(posts.get(i), Post::class.java)
 
                     // post어댑터에 추가
-                    Log.d(TAG, "post data 추가: $post")
+                    Log.d(TAG, "love fragment > post data 추가: $post")
                     datas.add(post)
                 }
                 // 어댑터 데이터 업데이트
@@ -78,6 +81,16 @@ class LoveFragment : Fragment() {
             override fun onFailure(call: Call<getPostResponse>, t: Throwable) {
                 Log.d(TAG, "onResponse: Failed! ${t.message}")
             }
+        })
+
+        postAdapter.setPostClickListener(object : PostAdapter.PostClickListener {
+            override fun postClicked(post: Post) {
+                val gson = Gson()
+                val intent = Intent(requireContext(), PostDetailActivity::class.java)
+                intent.putExtra("post", gson.toJson(post))
+                startActivity(intent)
+            }
+
         })
     }
 }
