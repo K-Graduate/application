@@ -70,10 +70,10 @@ class LoveFragment : Fragment() {
                     val post = gson.fromJson(posts.get(i), Post::class.java)
 
                     // post어댑터에 추가
-                    Log.d(TAG, "love fragment > post data 추가: $post")
                     datas.add(post)
                 }
                 // 어댑터 데이터 업데이트
+                Log.d(TAG, "love fragment > post data 추가: $datas")
                 postAdapter.postdatas = datas
                 postAdapter.notifyDataSetChanged()
             }

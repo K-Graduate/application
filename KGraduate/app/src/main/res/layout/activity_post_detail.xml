@@ -28,6 +28,79 @@
         app:layout_constraintTop_toTopOf="@id/iv_back"
         app:layout_constraintBottom_toBottomOf="@id/iv_back"/>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/iv_back">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tv_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="익명"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="01/22 17:44"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="#8f8f8f"
+                app:layout_constraintStart_toStartOf="@id/tv_id"
+                app:layout_constraintTop_toBottomOf="@id/tv_id"
+                android:layout_marginTop="2dp"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_post"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@id/tv_time"
+                tools:listitem="@layout/recylcer_post_detail_item"
+                android:layout_marginTop="5dp"/>
+
+            <TextView
+                android:id="@+id/tv_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="내용"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@id/tv_id"
+                app:layout_constraintTop_toBottomOf="@id/rv_post"
+                android:layout_marginTop="10dp"/>
+
+            <View style="@style/Divider"
+                android:id="@+id/view_divider"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_content"
+                android:layout_marginTop="18dp"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_comment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@id/view_divider"
+                tools:listitem="@layout/recycler_comment_item"
+                android:layout_marginTop="5dp"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <!--
+
     <TextView
         android:id="@+id/tv_id"
         android:layout_width="wrap_content"
@@ -63,10 +136,21 @@
         tools:listitem="@layout/recylcer_post_detail_item"
         android:layout_marginTop="5dp"/>
 
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="내용"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@id/tv_id"
+        app:layout_constraintTop_toBottomOf="@id/rv_post"
+        android:layout_marginTop="10dp"/>
+
     <View style="@style/Divider"
         android:id="@+id/view_divider"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rv_post"
+        app:layout_constraintTop_toBottomOf="@id/tv_content"
         android:layout_marginTop="18dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -78,6 +162,6 @@
         app:layout_constraintTop_toBottomOf="@id/view_divider"
         tools:listitem="@layout/recycler_comment_item"
         android:layout_marginTop="5dp"/>
-
+-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

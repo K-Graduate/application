@@ -55,7 +55,7 @@ class PostAdapter(private val context : Context) : RecyclerView.Adapter<PostAdap
 //            Log.d(TAG, "postAdapter > split before : ${item}")
 //            Log.d(TAG, "postAdapter > split result : $arr")
 //            Log.d(TAG, "postAdapter > file id : ${arr[0]}")
-            val uri = "http://175.123.112.88:8080/api/images/" + arr[0] + ".jpg"
+            val uri = "http://175.123.112.88:8080/api/images/" + arr[0]
             Glide.with(itemView).load(Uri.parse(uri)).into(postImg)
             postContent.text = item.content
             postLike.text = item.like

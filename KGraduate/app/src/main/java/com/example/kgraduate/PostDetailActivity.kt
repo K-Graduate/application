@@ -17,22 +17,23 @@ class PostDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_post_detail)
 
         init()
     }
 
     fun setPost(post : Post) {
-        Log.d(TAG, "setPost: $post")
-        binding.tvId.text = "왜안돼"
+        binding.tvId.text = post.creator_name
         binding.tvTime.text = post.create_time
 
-        var ids = post.file_id.split("|")
+        val file_id = post.file_id.substring(0,post.file_id.length-1)
+        var ids = file_id.split("|")
         detailPostAdapter.datas = ids as MutableList
+        detailPostAdapter.notifyDataSetChanged()
     }
 
     fun init() {
         binding = ActivityPostDetailBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         detailPostAdapter = DetailPostAdapter(baseContext)
         binding.rvPost.adapter = detailPostAdapter
