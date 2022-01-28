@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
+import androidx.viewpager2.widget.ViewPager2
 import com.example.kgraduate.databinding.ActivityPostDetailBinding
 import com.example.kgraduate.login.LoginActivity.Companion.TAG
 import com.example.kgraduate.posts.DetailPostAdapter
@@ -34,6 +35,18 @@ class PostDetailActivity : AppCompatActivity() {
     fun init() {
         binding = ActivityPostDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // ViewPager의 Paging 방향은 Horizontal
+        binding.rvPost.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+
+        binding.rvPost.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+
+            // Paging 완료되면 호출
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                Log.d("ViewPagerFragment", "Page ${position+1}")
+            }
+        })
 
         detailPostAdapter = DetailPostAdapter(baseContext)
         binding.rvPost.adapter = detailPostAdapter

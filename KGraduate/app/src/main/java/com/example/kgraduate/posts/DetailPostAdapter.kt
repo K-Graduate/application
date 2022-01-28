@@ -14,11 +14,13 @@ import com.example.kgraduate.login.LoginActivity.Companion.TAG
 import com.example.kgraduate.repository.entity.Post
 //import kotlinx.android.synthetic.main.recylcer_post_detail_item.view.*
 
-class DetailPostAdapter(private val mContext : Context) : RecyclerView.Adapter<DetailPostAdapter.ViewHolder>() {
+class DetailPostAdapter(private val mContext : Context) :
+    RecyclerView.Adapter<DetailPostAdapter.ViewHolder>() {
     var datas = mutableListOf<String>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(mContext).inflate(R.layout.recylcer_post_detail_item,parent,false)
+        val view = LayoutInflater.from(mContext).inflate(R.layout.recylcer_post_detail_item,
+            parent,false)
         return ViewHolder(view)
     }
 
