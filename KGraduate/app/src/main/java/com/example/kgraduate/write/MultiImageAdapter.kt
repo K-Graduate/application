@@ -10,7 +10,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.kgraduate.R
-import kotlinx.android.synthetic.main.image_item.view.*
+//import kotlinx.android.synthetic.main.image_item.view.*
 
 class MultiImageAdapter(private val context: Context, private val listener: onRemoveClick) :
     RecyclerView.Adapter<MultiImageAdapter.ViewHolder>() {
@@ -46,7 +46,7 @@ class MultiImageAdapter(private val context: Context, private val listener: onRe
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var image: ImageView = itemView.image
-        val button: Button = itemView.btn_recycler_item
+        var image: ImageView = itemView.findViewById(R.id.image)
+        val button: Button = itemView.findViewById(R.id.btn_recycler_item)
     }
 }

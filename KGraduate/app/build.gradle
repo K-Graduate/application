@@ -1,7 +1,6 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'kotlin-android-extensions'
     id 'androidx.navigation.safeargs'
     id 'kotlin-kapt'
 }
@@ -34,9 +33,12 @@ android {
         jvmTarget = '1.8'
     }
 
-    viewBinding {
-        enabled = true
+    buildFeatures {
+        viewBinding = true
     }
+//    viewBinding {
+//        enabled true
+//    }
 }
 
 dependencies {
@@ -83,4 +85,6 @@ dependencies {
 
     kapt "android.arch.lifecycle:compiler:1.0.0"
     kapt 'com.github.bumptech.glide:compiler:4.9.0'
+
+    implementation 'androidx.viewpager2:viewpager2:1.0.0'
 }
