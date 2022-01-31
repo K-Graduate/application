@@ -9,6 +9,7 @@ import android.util.Log
 import android.widget.Toast
 import com.example.kgraduate.login.LoginActivity.Companion.TAG
 import com.example.kgraduate.databinding.ActivityRegisterBinding
+import com.example.kgraduate.login.LoginActivity.Companion.ServerUrl
 import com.example.kgraduate.repository.entity.Register
 import com.example.kgraduate.repository.entity.Repetition
 import retrofit2.Call
@@ -35,8 +36,7 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://175.123.112.88:8080")
-            //.baseUrl("http://18.223.182.55:8080")
+            .baseUrl(ServerUrl)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 

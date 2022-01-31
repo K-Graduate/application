@@ -1,10 +1,9 @@
 package com.example.kgraduate
 
-import android.graphics.Paint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.TextView
+import android.widget.ScrollView
 import androidx.viewpager2.widget.ViewPager2
 import com.example.kgraduate.databinding.ActivityPostDetailBinding
 import com.example.kgraduate.login.LoginActivity.Companion.TAG
@@ -18,13 +17,13 @@ class PostDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         init()
     }
 
     fun setPost(post : Post) {
         binding.tvId.text = post.creator_name
         binding.tvTime.text = post.create_time
+        binding.tvContent.text = post.content
 
         val file_id = post.file_id.substring(0,post.file_id.length-1)
         var ids = file_id.split("|")
@@ -48,12 +47,21 @@ class PostDetailActivity : AppCompatActivity() {
             }
         })
 
+
         detailPostAdapter = DetailPostAdapter(baseContext)
         binding.rvPost.adapter = detailPostAdapter
+
+        // 사진 RecyclerView와 Indicator 연결
+        binding.indicator.setViewPager2(binding.rvPost)
 
         // 뒤로가기 버튼
         binding.tvBack.setOnClickListener {
             finish()
+        }
+
+        // EditText 클릭 시 뷰를 스크롤뷰 최하단으로 옮김
+        binding.etComment.setOnClickListener {
+            binding.layoutSv.post { binding.layoutSv.fullScroll(ScrollView.FOCUS_DOWN) }
         }
 
         if(intent.hasExtra("post")) {

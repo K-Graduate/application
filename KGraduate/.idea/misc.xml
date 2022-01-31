@@ -34,7 +34,10 @@
         <entry key="..\:/github/K-Graduate/application/KGraduate/app/src/main/res/layout/recycler_comment_item.xml" value="0.2848731884057971" />
         <entry key="..\:/github/K-Graduate/application/KGraduate/app/src/main/res/layout/recycler_post_item.xml" value="0.33" />
         <entry key="..\:/github/K-Graduate/application/KGraduate/app/src/main/res/layout/recylcer_post_detail_item.xml" value="0.2848731884057971" />
-        <entry key="..\:/github/application/KGraduate/app/src/main/res/layout/activity_post_detail.xml" value="0.24791666666666667" />
+        <entry key="..\:/github/application/KGraduate/app/src/main/res/drawable/black_indicator.xml" value="0.30185185185185187" />
+        <entry key="..\:/github/application/KGraduate/app/src/main/res/drawable/gray_indicator.xml" value="0.30185185185185187" />
+        <entry key="..\:/github/application/KGraduate/app/src/main/res/drawable/selector_indicator.xml" value="0.30185185185185187" />
+        <entry key="..\:/github/application/KGraduate/app/src/main/res/layout/activity_post_detail.xml" value="0.25" />
         <entry key="..\:/github/application/KGraduate/app/src/main/res/layout/recycler_post_item.xml" value="0.23177083333333334" />
       </map>
     </option>

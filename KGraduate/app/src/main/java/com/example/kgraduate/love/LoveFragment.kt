@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.kgraduate.PostDetailActivity
 import com.example.kgraduate.databinding.FragmentLoveBinding
+import com.example.kgraduate.login.LoginActivity.Companion.ServerUrl
 import com.example.kgraduate.repository.entity.Post
 import com.example.kgraduate.login.LoginActivity.Companion.TAG
 import com.example.kgraduate.posts.PostAdapter
@@ -42,8 +43,7 @@ class LoveFragment : Fragment() {
         prefs = context?.getSharedPreferences("Prefs", Context.MODE_PRIVATE)!!
 
         retrofit = Retrofit.Builder()
-            .baseUrl("http://175.123.112.88:8080")
-            //.baseUrl("http://18.223.182.55:8080")
+            .baseUrl(ServerUrl)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
@@ -90,7 +90,6 @@ class LoveFragment : Fragment() {
                 intent.putExtra("post", gson.toJson(post))
                 startActivity(intent)
             }
-
         })
     }
 }

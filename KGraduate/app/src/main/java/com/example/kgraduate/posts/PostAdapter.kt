@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.kgraduate.R
+import com.example.kgraduate.login.LoginActivity.Companion.ServerUrl
 import com.example.kgraduate.login.LoginActivity.Companion.TAG
 import com.example.kgraduate.repository.entity.Post
 //import kotlinx.android.synthetic.main.recycler_post_item.view.*
@@ -50,12 +51,8 @@ class PostAdapter(private val context : Context) : RecyclerView.Adapter<PostAdap
 
         fun bind(item: Post) {
             // 사진 등록
-            //Glide.with(itemView).load(item.post_image).into(postImg)
             val arr = item.file_id.split("|")
-//            Log.d(TAG, "postAdapter > split before : ${item}")
-//            Log.d(TAG, "postAdapter > split result : $arr")
-//            Log.d(TAG, "postAdapter > file id : ${arr[0]}")
-            val uri = "http://175.123.112.88:8080/api/images/" + arr[0]
+            val uri = ServerUrl + "/api/images/" + arr[0]
             Glide.with(itemView).load(Uri.parse(uri)).into(postImg)
             postContent.text = item.content
             postLike.text = item.like
