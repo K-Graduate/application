@@ -30,11 +30,18 @@ interface PostService {
         @Part img: MultipartBody.Part
     ): Call<ImageResponse>
 
-
+    // 첫 게시물 5개 불러오기
     @GET("/api/post")
-    fun getPost(
+    fun getFirstPost(
         @Header("Authorization") token: String/*,
         @Field("type") type: String*/
     ): Call<getPostResponse>
 
+    // 다음 게시물 5개 불러오기
+    @GET("/api/post")
+    fun getPost(
+        @Header("Authorization") token: String/*,
+        @Field("type") type: String*/,
+        @Query("offset") offset : String
+    ): Call<getPostResponse>
 }

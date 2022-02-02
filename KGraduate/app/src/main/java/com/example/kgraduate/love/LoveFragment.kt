@@ -9,6 +9,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.kgraduate.PostDetailActivity
 import com.example.kgraduate.databinding.FragmentLoveBinding
 import com.example.kgraduate.login.LoginActivity.Companion.ServerUrl
@@ -18,6 +20,7 @@ import com.example.kgraduate.posts.PostAdapter
 import com.example.kgraduate.posts.PostService
 import com.example.kgraduate.repository.dto.response.getPostResponse
 import com.google.gson.Gson
+import com.google.gson.JsonArray
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -31,8 +34,10 @@ class LoveFragment : Fragment() {
     lateinit var binding : FragmentLoveBinding
     lateinit var postAdapter: PostAdapter
     val datas = mutableListOf<Post>()
+    var lastOffset = ""
 
     lateinit var prefs : SharedPreferences
+    lateinit var authorization : String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -56,26 +61,14 @@ class LoveFragment : Fragment() {
         postAdapter = PostAdapter(requireContext())
         binding.rvLove.adapter = postAdapter
 
-        val authorization = "Bearer " + prefs.getString("token","")
+        authorization = "Bearer " + prefs.getString("token","")
 
-        postService.getPost(authorization).enqueue(object : Callback<getPostResponse> {
+        postService.getFirstPost(authorization).enqueue(object : Callback<getPostResponse> {
             override fun onResponse(call: Call<getPostResponse>, response: Response<getPostResponse>) {
                 Log.d(TAG, "onResponse: Success!")
 
                 val posts = response.body()!!.posts
-
-                for(i in 0 until posts.size()) {
-                    // json to Post 변환
-                    val gson = Gson()
-                    val post = gson.fromJson(posts.get(i), Post::class.java)
-
-                    // post어댑터에 추가
-                    datas.add(post)
-                }
-                // 어댑터 데이터 업데이트
-                Log.d(TAG, "love fragment > post data 추가: $datas")
-                postAdapter.postdatas = datas
-                postAdapter.notifyDataSetChanged()
+                addPost(posts)
             }
 
             override fun onFailure(call: Call<getPostResponse>, t: Throwable) {
@@ -91,5 +84,50 @@ class LoveFragment : Fragment() {
                 startActivity(intent)
             }
         })
+
+        binding.rvLove.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val lastPosition = (recyclerView.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+                val itemCount = recyclerView.adapter!!.itemCount - 1
+
+                // 리사이클러뷰 최하단 도착
+                if(lastPosition == itemCount) {
+                    postService.getPost(authorization, lastOffset).enqueue(object : Callback<getPostResponse> {
+                        override fun onResponse(
+                            call: Call<getPostResponse>,
+                            response: Response<getPostResponse>
+                        ) {
+                            Log.d(TAG, "onResponse: Success!")
+
+                            val posts = response.body()!!.posts
+                            addPost(posts)
+                        }
+
+                        override fun onFailure(call: Call<getPostResponse>, t: Throwable) {
+                            Log.d(TAG, "onResponse: Failed! ${t.message}")
+                        }
+                    })
+                }
+            }
+        })
+    }
+
+    fun addPost(posts: JsonArray) {
+        for(i in 0 until posts.size()) {
+            // json to Post 변환
+            val gson = Gson()
+            val post = gson.fromJson(posts.get(i), Post::class.java)
+
+            // post어댑터에 추가
+            datas.add(post)
+
+            lastOffset = post.id
+        }
+        // 어댑터 데이터 업데이트
+        Log.d(TAG, "love fragment > post data 추가: $datas")
+        postAdapter.postdatas = datas
+        postAdapter.notifyDataSetChanged()
     }
 }

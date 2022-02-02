@@ -7,6 +7,7 @@ import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.database.Cursor
 import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
@@ -35,6 +36,10 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
 import java.lang.Exception
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 class WritePostActivity : AppCompatActivity(), onRemoveClick {
     lateinit var binding: ActivityWritePostBinding
@@ -154,7 +159,17 @@ class WritePostActivity : AppCompatActivity(), onRemoveClick {
             jsonObject.addProperty("content",binding.etContent.text.toString())
             jsonObject.addProperty("creator_name","tester")
             jsonObject.addProperty("creator_id", "11")
-            jsonObject.addProperty("creator_time","2022-01-17 23:49:23")
+
+            val long_now = System.currentTimeMillis()
+
+            // 현재 시간을 Date 타입으로 변환
+            val t_date = Date(long_now)
+
+            // 날짜, 시간을 가져오고 싶은 형태 선언
+            val t_dateFormat = SimpleDateFormat("yyyy-MM-dd kk:mm:ss", Locale("ko", "KR"))
+            val str_date = t_dateFormat.format(t_date)
+
+            jsonObject.addProperty("creator_time",str_date)
             //jsonObject.addProperty("comments","0")
             //jsonObject.addProperty("like","0")
 

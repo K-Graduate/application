@@ -3,6 +3,7 @@ package com.example.kgraduate
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MotionEvent
 import android.widget.ScrollView
 import androidx.viewpager2.widget.ViewPager2
 import com.example.kgraduate.databinding.ActivityPostDetailBinding
@@ -47,7 +48,6 @@ class PostDetailActivity : AppCompatActivity() {
             }
         })
 
-
         detailPostAdapter = DetailPostAdapter(baseContext)
         binding.rvPost.adapter = detailPostAdapter
 
@@ -55,7 +55,7 @@ class PostDetailActivity : AppCompatActivity() {
         binding.indicator.setViewPager2(binding.rvPost)
 
         // 뒤로가기 버튼
-        binding.tvBack.setOnClickListener {
+        binding.ivBack.setOnClickListener {
             finish()
         }
 
