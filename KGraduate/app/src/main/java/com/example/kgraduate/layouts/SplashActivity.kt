@@ -6,6 +6,7 @@ import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import com.example.kgraduate.R
 import com.example.kgraduate.login.LoginActivity
+import com.example.kgraduate.write.WritePostActivity
 
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,7 +18,8 @@ class SplashActivity : AppCompatActivity() {
     private fun startLoading() {
         val handler = Handler()
         handler.postDelayed({
-            startActivity(Intent(applicationContext, LoginActivity::class.java))
+            //startActivity(Intent(applicationContext, LoginActivity::class.java))
+            startActivity(Intent(applicationContext, WritePostActivity::class.java))
             finish()
         }, 1200)
     }

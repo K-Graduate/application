@@ -12,10 +12,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.kgraduate.R
 import com.example.kgraduate.databinding.ActivityWritePostBinding
 import com.example.kgraduate.login.LoginActivity.Companion.ServerUrl
 import com.example.kgraduate.repository.dto.response.PostResponse
@@ -50,6 +55,7 @@ class WritePostActivity : AppCompatActivity(), onRemoveClick {
     lateinit var retrofit: Retrofit
     lateinit var postService: PostService
     var body: PostResponse? = null
+    lateinit var post_type : String
 
     lateinit var prefs: SharedPreferences
 
@@ -143,6 +149,21 @@ class WritePostActivity : AppCompatActivity(), onRemoveClick {
         // 창 닫기
         binding.tvClose.setOnClickListener {
             finish()
+        }
+
+        // Spinner를 위한 ArrayAdapter 설정
+        val types = resources.getStringArray(R.array.post_type)
+        binding.spType.adapter = ArrayAdapter(this,R.layout.spinner_item,types)
+        binding.spType.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                val vv = binding.spType.getItemAtPosition(p2)
+                Toast.makeText(baseContext,vv.toString(),Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+
+            }
+
         }
 
         // 갤러리에서 이미지 가져오기

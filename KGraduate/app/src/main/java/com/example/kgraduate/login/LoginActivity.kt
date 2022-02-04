@@ -22,9 +22,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 class LoginActivity : AppCompatActivity() {
     companion object {
         const val TAG = "TAG_GRADUATE"
-        const val ServerUrl = "https://df4d-121-131-74-18.ngrok.io"
+        //const val ServerUrl = "https://df4d-121-131-74-18.ngrok.io"
         //const val ServerUrl = "https://eunpyo.loca.lt"
-        //const val ServerUrl = "http://175.123.112.88:8080"
+        const val ServerUrl = "http://175.123.112.88:8080"
         //const val ServerUrl = "http://18.223.182.55:8080"
     }
 

@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">KGraduate</string>
+    <string-array name="post_type">
+        <item>분양</item>
+        <item>교배</item>
+        <item>제보</item>
+    </string-array>
 </resources>

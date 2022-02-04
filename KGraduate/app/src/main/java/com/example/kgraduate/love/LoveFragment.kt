@@ -93,7 +93,7 @@ class LoveFragment : Fragment() {
                 val itemCount = recyclerView.adapter!!.itemCount - 1
 
                 // 리사이클러뷰 최하단 도착
-                if(lastPosition == itemCount) {
+                if(lastPosition == itemCount && lastOffset.toInt() > 1) {
                     postService.getPost(authorization, lastOffset).enqueue(object : Callback<getPostResponse> {
                         override fun onResponse(
                             call: Call<getPostResponse>,
