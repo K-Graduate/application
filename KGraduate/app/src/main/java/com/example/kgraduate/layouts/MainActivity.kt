@@ -10,11 +10,11 @@ import android.util.Log
 import com.example.kgraduate.R
 import com.example.kgraduate.login.LoginActivity.Companion.TAG
 import com.example.kgraduate.databinding.ActivityMainBinding
-import com.example.kgraduate.info.InfoFragment
-import com.example.kgraduate.love.LoveFragment
+import com.example.kgraduate.info.ReportFragment
+import com.example.kgraduate.love.BreedFragment
 import com.example.kgraduate.main.HomeFragment
 import com.example.kgraduate.message.MessageFragment
-import com.example.kgraduate.parcelout.ParcelOutFragment
+import com.example.kgraduate.parcelout.RehomeFragment
 import com.example.kgraduate.write.WritePostActivity
 
 class MainActivity : AppCompatActivity() {
@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.loveBtn -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.container, LoveFragment()).commit()
+                        .replace(R.id.container, BreedFragment()).commit()
                 }
                 R.id.homeBtn -> {
                     supportFragmentManager.beginTransaction()
@@ -50,11 +50,11 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.infoBtn -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.container, InfoFragment()).commit()
+                        .replace(R.id.container, ReportFragment()).commit()
                 }
                 R.id.parcelOutBtn -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.container, ParcelOutFragment()).commit()
+                        .replace(R.id.container, RehomeFragment()).commit()
                 }
             }
             true

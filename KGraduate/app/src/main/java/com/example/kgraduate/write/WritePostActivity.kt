@@ -156,14 +156,17 @@ class WritePostActivity : AppCompatActivity(), onRemoveClick {
         binding.spType.adapter = ArrayAdapter(this,R.layout.spinner_item,types)
         binding.spType.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                val vv = binding.spType.getItemAtPosition(p2)
-                Toast.makeText(baseContext,vv.toString(),Toast.LENGTH_SHORT).show()
+                val type = binding.spType.getItemAtPosition(p2)
+                post_type = when(type) {
+                    "분양" -> "rehome"
+                    "교배" -> "breed"
+                    else -> "inform"
+                }
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
 
             }
-
         }
 
         // 갤러리에서 이미지 가져오기
@@ -175,7 +178,7 @@ class WritePostActivity : AppCompatActivity(), onRemoveClick {
         binding.tvPost.setOnClickListener {
             val jsonObject = JsonObject()
 
-            jsonObject.addProperty("type", "분양")
+            jsonObject.addProperty("type", post_type)
             jsonObject.addProperty("title", binding.etTitle.text.toString())
             jsonObject.addProperty("content",binding.etContent.text.toString())
             jsonObject.addProperty("creator_name","tester")

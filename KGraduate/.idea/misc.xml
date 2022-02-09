@@ -37,9 +37,11 @@
         <entry key="..\:/github/application/KGraduate/app/src/main/res/drawable/bg_spinner_type.xml" value="0.278125" />
         <entry key="..\:/github/application/KGraduate/app/src/main/res/drawable/black_indicator.xml" value="0.30185185185185187" />
         <entry key="..\:/github/application/KGraduate/app/src/main/res/drawable/gray_indicator.xml" value="0.30185185185185187" />
+        <entry key="..\:/github/application/KGraduate/app/src/main/res/drawable/recycler_button_background.xml" value="0.27395833333333336" />
         <entry key="..\:/github/application/KGraduate/app/src/main/res/drawable/selector_indicator.xml" value="0.30185185185185187" />
         <entry key="..\:/github/application/KGraduate/app/src/main/res/layout/activity_post_detail.xml" value="0.25" />
         <entry key="..\:/github/application/KGraduate/app/src/main/res/layout/activity_write_post.xml" value="0.26197916666666665" />
+        <entry key="..\:/github/application/KGraduate/app/src/main/res/layout/image_item.xml" value="0.2578125" />
         <entry key="..\:/github/application/KGraduate/app/src/main/res/layout/recycler_post_item.xml" value="0.23177083333333334" />
         <entry key="..\:/github/application/KGraduate/app/src/main/res/layout/spinner_item.xml" value="0.26197916666666665" />
       </map>

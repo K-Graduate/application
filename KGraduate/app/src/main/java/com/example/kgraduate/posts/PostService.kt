@@ -33,15 +33,15 @@ interface PostService {
     // 첫 게시물 5개 불러오기
     @GET("/api/post")
     fun getFirstPost(
-        @Header("Authorization") token: String/*,
-        @Field("type") type: String*/
+        @Header("Authorization") token: String,
+        @Query("type") type: String
     ): Call<getPostResponse>
 
     // 다음 게시물 5개 불러오기
     @GET("/api/post")
     fun getPost(
-        @Header("Authorization") token: String/*,
-        @Field("type") type: String*/,
+        @Header("Authorization") token: String,
+        @Query("type") type: String,
         @Query("offset") offset : String
     ): Call<getPostResponse>
 }

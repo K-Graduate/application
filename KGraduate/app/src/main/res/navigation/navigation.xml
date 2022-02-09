@@ -26,8 +26,8 @@
 
     <fragment
         android:id="@+id/info_fragment"
-        android:name="com.example.kgraduate.info.InfoFragment"
-        tools:layout="@layout/fragment_info">
+        android:name="com.example.kgraduate.info.ReportFragment"
+        tools:layout="@layout/fragment_report">
         <action
             android:id="@+id/action_notes_fragment_to_logout_activity"
             app:destination="@id/home_fragment" />
@@ -44,8 +44,8 @@
 
     <fragment
         android:id="@+id/love_fragment"
-        android:name="com.example.kgraduate.love.LoveFragment"
-        tools:layout="@layout/fragment_love">
+        android:name="com.example.kgraduate.love.BreedFragment"
+        tools:layout="@layout/fragment_breed">
         <action
             android:id="@+id/action_issue_list_fragment_to_issue_detail_activity"
             app:destination="@id/home_fragment" />
@@ -79,8 +79,8 @@
 
     <fragment
         android:id="@+id/parcelOut_fragment"
-        android:name="com.example.kgraduate.parcelout.ParcelOutFragment"
-        tools:layout="@layout/fragment_parcelout">
+        android:name="com.example.kgraduate.parcelout.RehomeFragment"
+        tools:layout="@layout/fragment_rehome">
         <action
             android:id="@+id/action_issue_list_fragment_to_issue_detail_activity"
             app:destination="@id/home_fragment" />

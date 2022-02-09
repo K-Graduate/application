@@ -5,16 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.kgraduate.databinding.FragmentInfoBinding
+import com.example.kgraduate.databinding.FragmentReportBinding
 
-class InfoFragment : Fragment() {
-    lateinit var binding: FragmentInfoBinding
+class ReportFragment : Fragment() {
+    lateinit var binding: FragmentReportBinding
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentInfoBinding.inflate(inflater, container, false)
+        binding = FragmentReportBinding.inflate(inflater, container, false)
         return binding.root
     }
 }

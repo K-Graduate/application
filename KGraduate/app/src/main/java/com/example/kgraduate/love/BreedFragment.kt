@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kgraduate.PostDetailActivity
-import com.example.kgraduate.databinding.FragmentLoveBinding
+import com.example.kgraduate.databinding.FragmentBreedBinding
 import com.example.kgraduate.login.LoginActivity.Companion.ServerUrl
 import com.example.kgraduate.repository.entity.Post
 import com.example.kgraduate.login.LoginActivity.Companion.TAG
@@ -27,11 +27,11 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class LoveFragment : Fragment() {
+class BreedFragment : Fragment() {
     lateinit var retrofit : Retrofit
     lateinit var postService: PostService
 
-    lateinit var binding : FragmentLoveBinding
+    lateinit var binding : FragmentBreedBinding
     lateinit var postAdapter: PostAdapter
     val datas = mutableListOf<Post>()
     var lastOffset = ""
@@ -44,7 +44,7 @@ class LoveFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentLoveBinding.inflate(inflater,container,false)
+        binding = FragmentBreedBinding.inflate(inflater,container,false)
         prefs = context?.getSharedPreferences("Prefs", Context.MODE_PRIVATE)!!
 
         retrofit = Retrofit.Builder()
@@ -63,7 +63,7 @@ class LoveFragment : Fragment() {
 
         authorization = "Bearer " + prefs.getString("token","")
 
-        postService.getFirstPost(authorization).enqueue(object : Callback<getPostResponse> {
+        postService.getFirstPost(authorization, "breed").enqueue(object : Callback<getPostResponse> {
             override fun onResponse(call: Call<getPostResponse>, response: Response<getPostResponse>) {
                 Log.d(TAG, "onResponse: Success!")
 
@@ -94,7 +94,7 @@ class LoveFragment : Fragment() {
 
                 // 리사이클러뷰 최하단 도착
                 if(lastPosition == itemCount && lastOffset.toInt() > 1) {
-                    postService.getPost(authorization, lastOffset).enqueue(object : Callback<getPostResponse> {
+                    postService.getPost(authorization,"breed", lastOffset).enqueue(object : Callback<getPostResponse> {
                         override fun onResponse(
                             call: Call<getPostResponse>,
                             response: Response<getPostResponse>
